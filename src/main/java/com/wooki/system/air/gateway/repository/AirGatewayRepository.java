@@ -1,6 +1,7 @@
 package com.wooki.system.air.gateway.repository;
 
 import com.wooki.system.air.gateway.entity.AirGateway;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -11,5 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AirGatewayRepository extends CrudRepository<AirGateway, Integer> {
 
-    public AirGateway findByUid(String uid);
+    AirGateway findByUid(String uid);
 }
