@@ -29,6 +29,7 @@ public class ClientListener implements Runnable {
 				ClientSocket cs = new ClientSocket(socket);
 				int skey = socket.getPort();
 				new Thread(cs).start();
+				SocketManager.getSocketManager().add(socket,skey);
 				SocketManager.getSocketManager().add(cs,skey);
 			}
 			

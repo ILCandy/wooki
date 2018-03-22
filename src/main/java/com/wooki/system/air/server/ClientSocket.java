@@ -42,12 +42,17 @@ public class ClientSocket implements Runnable {
 					lastReceiveTime = System.currentTimeMillis();//刷新时间
 					System.out.println("服务端接收到的"+k+++"数据："+hex);
 					byte[] gatewayByte = {(byte) 0xAA,0x55};
+					byte[] queryData = {0x01,0x50, (byte) 0xFF, (byte) 0xFF};
 //					System.out.println(gatewayByte[0]+":"+gatewayByte[1]);
 					//如果是新的网关接入，保存序列号UID到数据库
 					if (gatewayByte[0]==bytes[0] && gatewayByte[1]==bytes[1]) {
 						System.out.println("保存序列号");
 						SocketManager.getSocketManager().saveGateway(hex);
-					} else if (bytes[0]==9) {
+					} else if (queryData[0]==bytes[0] && queryData[1]==bytes[1] && queryData[2]==bytes[2] && queryData[3]!=bytes[3]){
+						System.out.println("获取网关下面的设备，保存起来~~~");
+						SocketManager.getSocketManager().saveDevice(bytes,socket.getPort());
+					}
+					else if (bytes[0]==9) {
 						System.out.println("进来了~~~");
 						String str = "";
 						byte[] data = null;

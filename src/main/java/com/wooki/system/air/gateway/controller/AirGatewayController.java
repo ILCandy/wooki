@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.wooki.system.air.gateway.dto.AirGatwayDto;
 import com.wooki.system.air.gateway.dto.IdAirGatwayDto;
 import com.wooki.system.air.gateway.entity.AirGateway;
+import com.wooki.system.air.gateway.orders.OrderData;
 import com.wooki.system.air.gateway.service.AirGatewayService;
+import com.wooki.system.air.server.SocketManager;
 import com.wooki.system.base.BaseJson;
 import com.wooki.system.base.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,15 @@ public class AirGatewayController {
     public Object updateGatewayByUid(@RequestBody AirGatwayDto gatwayDto){
         AirGateway airGateway = gatewayService.findByUid(gatwayDto.getId());
         airGateway.setGatewayName(gatwayDto.getName());
+        return JSON.toJSON(BaseJson.ok(Constant.OPERATE_SUCCESS));
+    }
+
+    //
+    @PostMapping("/refreshGatewayDevice")
+    public Object refreshGatewayDevice(@RequestBody IdAirGatwayDto airGatwayDto){
+        AirGateway airGateway = gatewayService.findByUid(airGatwayDto.getId());
+        int port = airGateway.getPort();
+        SocketManager.getSocketManager().sendData(port, OrderData.QUERY_ALL);
         return JSON.toJSON(BaseJson.ok(Constant.OPERATE_SUCCESS));
     }
 
