@@ -1,0 +1,117 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.cards {
+    margin-top: 40px;
+}
+.card-container {
+    max-width: 300px;
+    height: 353px;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 20px;
+    margin:0 auto 30px;
+}
+.card-container .card-header {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+}
+.card-container .card-header .names {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 30px;
+    height: 36px;
+    color: #666;
+    font-size: 18px;
+}
+@media (max-width: 450px){
+    .card-container .card-header .names {
+        font-size: 16px;
+    }
+}
+.card-container .card-header .names .rename-text {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    border: 0;
+    height: 24px;
+    background-color: transparent;
+    line-height: 24px;
+}
+.card-container .card-header .names .rename-text:hover,
+.card-container .card-header .names .rename-text:active {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+.card-container .card-header .names .delete {
+    position: relative;
+    z-index: 10;
+}
+.card-container .card-header .names .layui-icon {
+    font-size: 20px;
+}
+.card-container .card-header .plans {
+    position: relative;
+}
+.card-container .card-main {
+    width: 100%;
+    height: 240px;
+}
+.cards.linkage  .card-container {
+    height: 300px;
+}
+.cards.linkage  .card-container .card-main {
+    width: 100%;
+    height: 180px;
+}
+.card-container .card-main .state {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.card-container .card-footer {
+    overflow: hidden;
+}
+.card-container .card-footer .setting {
+    color: #90a4ae;
+    cursor: pointer;
+}
+.card-container.add-card {
+    background-color: #e3e3e3;
+    cursor: pointer;
+    transition: background .5s;
+    -moz-transition: background .5s; /* Firefox 4 */
+    -webkit-transition: background .5s; /* Safari ºÍ Chrome */
+    -o-transition: background .5s; /* Opera */
+}
+.card-container.add-card:hover {
+    background-color: #ddd;
+    transition: background .5s;
+    -moz-transition: background .5s; /* Firefox 4 */
+    -webkit-transition: background .5s; /* Safari ºÍ Chrome */
+    -o-transition: background .5s; /* Opera */
+}
+.card-container.add-card .icon {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 100px auto 0;
+    border: 1px dashed #90a4ae;
+    font-size: 30px;
+    color: #90a4ae;
+    line-height: 60px;
+    text-align: center;
+}

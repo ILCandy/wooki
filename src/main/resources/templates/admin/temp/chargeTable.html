@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_calc.css"/>
+        <title>计费结算</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+
+            <div class="status-bar mt40">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select1">
+                                <option value="0">总计费</option>
+                                <option value="1">测试公司1</option>
+                                <option value="2">测试公司2</option>
+                                <option value="3">测试公司3</option>
+                                <option value="4">测试公司4</option>
+                                <option value="5">测试公司5</option>
+                                <option value="6">测试公司6</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select2">
+                                <option value="1">本月</option>
+                                <option value="2">2017-12</option>
+                                <option value="3">2017-11</option>
+                                <option value="4">2017-10</option>
+                                <option value="5">2017-09</option>
+                                <option value="6">2017-08</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row cards">
+                <div class="col-md-4 cards-list">
+                    <div class="card-container">
+                        <h4 class="card-title">本月加班空调使用时长</h4>
+                        <div class="card-main">
+                            <div class="data" style="color:#00CC99;">
+                                <span id="myTargetElement1Num" class="animateNum" data-animatetype="num" data-animatetarget="0.00">0.00</span>
+                            </div>
+                            <p class="unit">分钟</p>
+                        </div>
+                        <p class="card-tips">同比<span class="text">-30.50%</span></p>
+                    </div>
+                </div>
+                <div class="col-md-4 cards-list">
+                    <div class="card-container">
+                        <h4 class="card-title">本月会议室使用时长</h4>
+                        <div class="card-main">
+                            <div class="data" style="color:#0099CC;">
+                                <span id="myTargetElement2Num" class="animateNum" data-animatetype="num" data-animatetarget="0.00">0.00</span>
+                            </div>
+                            <p class="unit">分钟</p>
+                        </div>
+                        <p class="card-tips">同比<span class="text">-30.50%</span></p>
+                    </div>
+                </div>
+                <div class="col-md-4 cards-list">
+                    <div class="card-container">
+                        <h4 class="card-title">本月加班空调用电量</h4>
+                        <div class="card-main">
+                            <div class="data" style="color:#FF9966;">
+                                <span id="myTargetElement3Num" class="animateNum" data-animatetype="num" data-animatetarget="0.00">0.00</span>
+                            </div>
+                            <p class="unit">kWH</p>
+                        </div>
+                        <p class="card-tips">同比<span class="text">-15.50%</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 table-style mt20">
+                <h3 class="tc">会议室使用情况</h3>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <td align="center">会议室</td>
+                            <td align="center">使用时长</td>
+                            <td align="center">费用</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6 table-style mt20">
+                <h3 class="tc">会议室使用情况-A公司</h3>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <td align="center">会议室</td>
+                            <td align="center">使用时间</td>
+                            <td align="center">使用时长</td>
+                            <td align="center">使用公司</td>
+                            <td align="center">费用</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">2018-1-26 18:00 ~ 2018-1-26 17:00</td>
+                            <td align="center">48小时</td>
+                            <td align="center">A公司</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">2018-1-26 18:00 ~ 2018-1-26 17:00</td>
+                            <td align="center">48小时</td>
+                            <td align="center">A公司</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">2018-1-26 18:00 ~ 2018-1-26 17:00</td>
+                            <td align="center">48小时</td>
+                            <td align="center">A公司</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会议室A</td>
+                            <td align="center">2018-1-26 18:00 ~ 2018-1-26 17:00</td>
+                            <td align="center">48小时</td>
+                            <td align="center">A公司</td>
+                            <td align="center">500元</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6 table-style mt40">
+                <h3 class="tc">加班空调使用情况</h3>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <td align="center">空调</td>
+                            <td align="center">使用时长</td>
+                            <td align="center">费用</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center">空调A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">空调A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">空调A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                        <tr>
+                            <td align="center">空调A</td>
+                            <td align="center">48小时</td>
+                            <td align="center">500元</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12 table-style mt40">
+                <h3 class="tc">本月总计：加班空调1000元+会议室预定1000元</h3>
+            </div>
+
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+        isLogin();
+        if(!IsPC()){
+            loadSlider();
+        }
+        $(".load-mark").remove();
+    </script>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_deviceList.css"/>
+        <title>公司列表</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+
+            <div class="table-style mt20" id="List">
+            </div>
+
+            <div class="row mt20">
+                <div class="col-md-3 col-sm-6">
+                    <div class="input-group w-full">
+                        <a href="javascript:void(0);" class="user-btn green" onclick="windowOpen('add')">添加公司</a>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="row mt20">
+                <div class="col-md-4 col-sm-6">
+                    <div class="input-group w-full">
+						<select class="form-control" title="" name="" id="companyLevelB">
+						</select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="input-group w-full">
+						<select class="form-control" title="" name="" id="companyLevelC">
+						</select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="input-group w-full">
+						<a href="javascript:void(0);" class="user-btn green" onclick="bSetSuper();">绑定</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+
+        if(!IsPC()){
+            loadSlider();
+        }
+        
+        $(".load-mark").remove();
+
+        function getCompanyList(){
+            var url = "/company/list";
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                if (res.code == 200) {
+                    console.log(res);
+                    var html = "";
+                    html += '<table class="w-full">';
+                    html += '<thead>';
+                    html += '<tr>';
+                    html += '<td align="center">公司名称</td>';
+                    html += '<td align="center">ID</td>';
+                    html += '<td align="center">用户类型</td>';
+                    html += '<td align="center">所属上级</td>';
+                    html += '<td align="center">已绑微信</td>';
+                    html += '<td align="center">电话</td>';
+                    html += '<td align="center">邮箱</td>';
+                    html += '<td align="center">地址</td>';
+                    html += '<td align="center">logo</td>';
+                    html += '<td align="center">操作</td>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody id="ammeterList">';
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        html += '<tr>';
+                        html += '<td align="center">' + res.data.records[i].name + '</td>';
+                        html += '<td align="center">' + res.data.records[i].id + '</td>';
+                        switch(res.data.records[i].type){
+                            case 400:
+                                html += '<td align="center">入驻企业</td>';
+                                break;
+                            case 500:
+                                html += '<td align="center">管理员</td>';
+                                break;
+                            case 1000:
+                                html += '<td align="center">超级管理员</td>';
+                                break;
+                            default:
+                                html += '<td align="center">无</td>';
+                                break;
+                        }
+                        
+                        html += '<td align="center">' + (res.data.records[i].superId ? res.data.records[i].superId:"无") + '</td>';
+                        html += '<td align="center">暂无</td>';
+                        html += '<td align="center">' + res.data.records[i].mobile + '</td>';
+                        html += '<td align="center">' + res.data.records[i].email + '</td>';
+                        html += '<td align="center">' + res.data.records[i].address + '</td>';
+                        html += '<td align="center"><img src="../assets/img/logo.png" width="40" alt="logo"></td>';
+                        html += '<td align="center"><span  onclick="windowOpen(' + res.data.records[i].id + ')">操作</span></td>';
+                        html += '</tr>';
+                    };
+                    html += '</tbody>';
+                    html += '</table>';
+                    $("#List").html(html);
+                };
+            },token);
+        }
+        getCompanyList();
+
+        function getCompanyListB(){
+            var url = "/company/bList";
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                if (res.code == 200) {
+                    console.log(res);
+					var html = "";
+					html += '<option value="0">请选择公司</option>';
+                    for (var i = 0; i < res.data.records.length; i++) {
+						html += '<option value="' + res.data.records[i].id + '">' + res.data.records[i].mobile + '</option>';
+                    };
+					$("#companyLevelB").html(html);
+                };
+            },token);
+        }
+        getCompanyListB();
+
+        function getCompanyListC(){
+            var url = "/company/cList";
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                if (res.code == 200) {
+                    console.log(res);
+					var html = "";
+					html += '<option value="0">请选择公司</option>';
+                    for (var i = 0; i < res.data.records.length; i++) {
+						html += '<option value="' + res.data.records[i].id + '">' + res.data.records[i].mobile + '</option>';
+                    };
+					$("#companyLevelC").html(html);
+                };
+            },token);
+        }
+        getCompanyListC();
+		
+		function bSetSuper(){
+			var levelB = $("#companyLevelB").val();
+			var levelC = $("#companyLevelC").val();
+			if(levelB == "" || levelB == "0"){
+				layer.msg("请选择B级用户");
+				return false;
+			}
+			if(levelC == "" || levelC == "0"){
+				layer.msg("请选择C级用户");
+				return false;
+			}
+			layer.confirm('确认要绑定到该公司下吗？',function(index){
+				var url = "/company/bSetSuper";
+				var token = getCookie("token");
+				var mydata = JSON.stringify({
+					"superCompanyId": Number(levelB),
+					"childCompanyId": Number(levelC)
+				});
+				common.Ajax(url, mydata, "post", function (res) {
+					if (res.code == 200) {
+						console.log(res);
+						layer.msg("绑定成功",{icon:1,time:1000});
+					} else {
+                        layer.msg(res.msg,{icon:2,time:1000});
+                    }
+				},token);
+			});
+			
+		}
+
+        function windowOpen(setId){
+            layer.open({
+                type: 2,
+                title: "添加公司",
+                closeBtn: 1,
+                shadeClose: true,
+                shade: 0.2,
+                move: false,
+                scrollbar: false,
+                area: ['100%', '100%'],
+                content: 'addCompany.html?setId=' + setId
+            });
+        }
+
+    </script>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.gateway.mapper.TblGatewayMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.gateway.entity.TblGateway">
+		<id column="id" property="id" />
+		<result column="gateway_id" property="gatewayId" />
+		<result column="password" property="password" />
+		<result column="version" property="version" />
+		<result column="snid" property="snid" />
+		<result column="device_count" property="deviceCount" />
+		<result column="group_count" property="groupCount" />
+		<result column="job_count" property="jobCount" />
+		<result column="scene_count" property="sceneCount" />
+		<result column="task_count" property="taskCount" />
+		<result column="update_time" property="updateTime" />
+		<result column="add_time" property="addTime" />
+		<result column="data" property="data" />
+	</resultMap>
+
+</mapper>

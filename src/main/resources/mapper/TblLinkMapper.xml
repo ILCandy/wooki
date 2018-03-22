@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.link.mapper.TblLinkMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.link.entity.TblLink">
+		<id column="id" property="id" />
+		<result column="short_addr" property="shortAddr" />
+		<result column="link_time" property="linkTime" />
+		<result column="device_ids" property="deviceIds" />
+		<result column="status_list" property="statusList" />
+		<result column="addtime" property="addtime" />
+		<result column="device_status" property="deviceStatus" />
+		<result column="update_time" property="updateTime" />
+		<result column="end_point" property="endPoint" />
+		<result column="status" property="status" />
+		<result column="days" property="days" />
+		<result column="time" property="time" />
+		<result column="selectKey" property="selectKey" />
+	</resultMap>
+</mapper>

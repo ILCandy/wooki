@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_meeting.css"/>
+        <title>会议室申请</title>
+        <style>
+            html,body{height: 100%;}
+        </style>
+    </head>
+    <body style="background-color:#fff;">
+        <div class="container mt40">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">申请公司</label>
+                            <div class="col-sm-8">
+                                <div style="padding-top:7px;padding-left:15px;">A公司</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">会议地点</label>
+                            <div class="col-sm-8">
+                                <div style="padding-top:7px;padding-left:15px;" id="roomName"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">会议时间</label>
+                            <div class="col-sm-8">
+                                <div style="padding-top:7px;padding-left:15px;" id="roomTime"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">会议历时</label>
+                            <div class="col-sm-8">
+                                <div style="padding-top:7px;padding-left:15px;" id="meetingTime"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p class="col-sm-8 col-sm-offset-2">(会议室收费标准:xx元/30分钟,不足30分钟按30分钟计算)</p>
+                </div>
+            </div>
+
+            <div class="row mt30 mb30">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a class="user-button pull-left" href="javascript:void(0);" onclick="closeLayerOpen()">取消申请</a>
+                    <a class="user-button green pull-right" href="javascript:void(0);" onclick="booking();">预定</a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+        function yuding(){
+            layer.msg("预订成功",{icon:1,time:1000});
+            setTimeout(function (){
+                window.location.href = "lockKey.html";
+            },500);
+        }
+
+        var Request = GetRequest();
+        var roomId = Request.roomId;
+        var roomName = unescape(Request.roomName);
+        var beginDate = Request.beginDate;
+        var endDate = Request.endDate;
+        var meetingTime = Request.meetingTime;
+        var beginDateText = beginDate.substring(0,4) + "-" + beginDate.substring(4,6) + "-" + beginDate.substring(6,8) + " " + beginDate.substring(8,10) + ":" + beginDate.substring(10,12) + ":" + beginDate.substring(12,14);
+        var endDateText = endDate.substring(0,4) + "-" + endDate.substring(4,6) + "-" + endDate.substring(6,8) + " " + endDate.substring(8,10) + ":" + endDate.substring(10,12) + ":" + endDate.substring(12,14);;
+
+        $("#roomName").html(roomName);
+        $("#roomTime").html(beginDateText + " ~ " + endDateText);
+        $("#meetingTime").html(meetingTime + "分钟");
+
+        function closeLayerOpen(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index);
+        }
+
+        function booking(){
+            layer.confirm("确定预定该会议室吗？", {icon: 3, title:'提示'}, function(index){
+                var url = "/metting/reserve";
+                var token = getCookie("token");
+                var mydata = JSON.stringify({
+                    "id": roomId,
+                    "beginDate": beginDate,
+                    "endDate": endDate
+                });
+                common.Ajax(url, mydata, "post", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        layer.msg("预定成功",{icon:1,time:1000});
+                        layer.alert('<img src="' + res.data.picUrl + '" alt="二维码" width="200" height="200" />', function(index){
+                            parent.location.reload();
+                            layer.close(index);
+                        });
+                    } else {
+                        layer.msg(res.msg,{icon:2,time:1000});
+                    }
+                },token);
+
+                layer.close(index);
+            });
+        }
+    </script>
+</html>

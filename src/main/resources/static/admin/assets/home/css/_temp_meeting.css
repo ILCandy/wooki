@@ -1,0 +1,85 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.status-bar {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.order-container {
+    border: 1px dashed #ddd;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.order-container .tit {
+    margin: 10px 0;
+}
+.order-container .order-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+.room {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.room .tit {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+}
+.date {
+    width: 100%;
+    overflow: hidden;
+}
+.date .dateitem {
+    position: relative;
+    width: 20%;
+    height: 36px;
+    float: left;
+    padding: 0 2px;
+    margin-bottom: 4px;
+    text-align: center;
+    line-height: 36px;
+}
+.date .dateitem .box {
+    background-color: #f2f2f2;
+}
+.date .dateitem .tit {
+    position: absolute;
+    top: 36px;
+    left: 2px;
+    right: 2px;
+    z-index: 5;
+    background-color: #c33f3f;
+    width: auto;
+    font-size: 12px;
+    overflow: hidden;
+    color: #fff;
+}
+.date .dateitem.active .box {
+    background-color: #00cc99;
+    color: #fff;
+}
+.date .dateitem.disabled .box {
+    background-color: #c33f3f;
+    color: #fff;
+    cursor: not-allowed;
+}
+@media (max-width: 400px){
+    .room {
+        padding: 20px;
+        background-color: #fff;
+    }
+    .date .dateitem {
+        width: 25%;
+    }
+}

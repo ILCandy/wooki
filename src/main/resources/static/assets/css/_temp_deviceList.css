@@ -1,0 +1,50 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.label {
+    display: inline-block;
+    width: 70px;
+    height: 24px;
+    padding: 0;
+    border-radius: 0;
+    font-weight: normal;
+    line-height: 24px;
+    font-size: 100%;
+}
+.status-bar {
+    margin: 20px;
+}
+.tab-bar {
+    width: 100%;
+    height: 64px;
+    padding: 20px 20px 0;
+}
+.tab-bar .tab-bar-ul {
+    overflow: hidden;
+}
+.tab-bar .tab-bar-ul .tab-bar-li {
+    float: left;
+    padding: 0 20px;
+    margin-right: 2px;
+    line-height: 44px;
+    background-color: #eee;
+    cursor: pointer;
+}
+.tab-bar .tab-bar-ul .tab-bar-li:hover {
+    background-color: #ddd;
+}
+.tab-bar .tab-bar-ul .tab-bar-li.active {
+    background-color: #fff;
+}
+input[type=text] {
+    border: 0;
+    background-color: transparent;
+    text-align: center;
+}
+.table-select {
+    height: 24px;
+}

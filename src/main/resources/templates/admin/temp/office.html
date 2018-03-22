@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_office.css"/>
+        <title>办公设置</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+            <div class="form-horizontal office-set">
+                <div class="form-group" id="thisWeek">
+                    <label class="col-sm-2 control-label">上班周期<span class="Weektip hidden">(本周)</span></label>
+                    <div class="col-sm-8">
+                        <ul class="week-select">
+                            <li class="week-option" data-innum="1" data-id="Monday">周一<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="2" data-id="Tuesday">周二<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="3" data-id="Wednesday">周三<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="4" data-id="Thursday">周四<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="5" data-id="Friday">周五<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="6" data-id="Saturday">周六<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="7" data-id="Sunday">周日<span class="icon glyphicon glyphicon-ok"></span></li>
+                        </ul>
+                    </div>
+                    <label class="col-sm-2 control-option"><input id="smallWeekSwitch" type="checkbox"> 双周</label>
+                </div>
+                <div class="form-group hidden" id="nextWeek">
+                    <label class="col-sm-2 control-label"><span class="Weektip hidden">(下周)</span></label>
+                    <div class="col-sm-8">
+                        <ul class="week-select">
+                            <li class="week-option" data-innum="1" data-id="Monday">周一<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="2" data-id="Tuesday">周二<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="3" data-id="Wednesday">周三<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="4" data-id="Thursday">周四<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="5" data-id="Friday">周五<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="6" data-id="Saturday">周六<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option" data-innum="7" data-id="Sunday">周日<span class="icon glyphicon glyphicon-ok"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上班时间</label>
+                    <div>
+                        <div class="col-sm-4 col-xs-6 input-group date">
+                            <input id="layuiTime1" type="text" class="form-control" value="" readonly="readonly">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                        <div class="col-sm-4 col-xs-6 input-group date">
+                            <input id="layuiTime2" type="text" class="form-control" value="" readonly="readonly">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">午休时间</label>
+                    <div>
+                        <div class="col-sm-4 col-xs-6 input-group date">
+                            <input id="layuiTime3" type="text" class="form-control" value="" readonly="readonly">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                        <div class="col-sm-4 col-xs-6 input-group date">
+                            <input id="layuiTime4" type="text" class="form-control" value="" readonly="readonly">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">加班下班时间</label>
+                    <div>
+                        <div class="col-sm-4 col-xs-6 input-group date">
+                            <input id="layuiTime5" type="text" class="form-control" value="" readonly="readonly">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">电费标准</label>
+                    <div>
+                        <div class="col-sm-2 col-xs-6 input-group">
+                            <input type="number" id="size" oninput="if(value.length>5)value=value.slice(0,5)" class="form-control text-right" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 control-option">元/度</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">空调</label>
+                    <div>
+                        <div class="col-sm-2 col-xs-6 input-group">
+                            <input type="number" id="size2" oninput="if(value.length>5)value=value.slice(0,5)" class="form-control text-right" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 control-option">元/小时</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">会议室</label>
+                    <div>
+                        <div class="col-sm-2 col-xs-6 input-group">
+                            <input type="number" id="size3" oninput="if(value.length>5)value=value.slice(0,5)" class="form-control text-right" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 control-option">元/小时</div>
+                </div>
+            </div>
+
+            <div class="row mt30 mb30">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a class="user-button white pull-left" href="javascript:void(0);">取消</a>
+                    <a class="user-button green pull-right" onclick="submit();" href="javascript:void(0);">保存</a>
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script type="text/javascript">
+
+        isLogin();
+
+        if(!IsPC()){
+            loadSlider();
+        }
+        $(".load-mark").remove();
+
+        var add = true;
+        
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#layuiTime1',
+                type: 'time',
+                format: 'HH:mm'
+            });
+            laydate.render({
+                elem: '#layuiTime2',
+                type: 'time',
+                format: 'HH:mm'
+            });
+            laydate.render({
+                elem: '#layuiTime3',
+                type: 'time',
+                format: 'HH:mm'
+            });
+            laydate.render({
+                elem: '#layuiTime4',
+                type: 'time',
+                format: 'HH:mm'
+            });
+            laydate.render({
+                elem: '#layuiTime5',
+                type: 'time',
+                format: 'HH:mm'
+            });
+        });
+
+        $(".week-option").click(function(){
+            $(this).toggleClass("active");
+        });
+        $("#smallWeekSwitch").click(function(){
+            if($(this).is(':checked')){
+                $("#nextWeek").removeClass("hidden");
+                $(".Weektip").removeClass("hidden");
+            } else {
+                $("#nextWeek").addClass("hidden");
+                $(".Weektip").addClass("hidden");
+            }
+        });
+
+        function getWork(){
+            var url = "/company/getWork";
+            var mydata = "";
+            var token = getCookie("token");
+            common.Ajax(url,mydata,"get",function(res){
+                if(res.code == "200"){
+                    console.log(res);
+                    if(res.data.length > 0){
+                        add = false;
+                        var workTimeBegin = res.data[0].workTime.split("~")[0];
+                        var workTimeEnd = res.data[0].workTime.split("~")[1];
+                        var middayRestBegin = res.data[0].middayRest.split("~")[0];
+                        var middayRestEnd = res.data[0].middayRest.split("~")[1];
+                        $("#layuiTime1").val(workTimeBegin);
+                        $("#layuiTime2").val(workTimeEnd);
+                        $("#layuiTime3").val(middayRestBegin);
+                        $("#layuiTime4").val(middayRestEnd);
+                        $("#layuiTime5").val(res.data[0].comeOffWork);
+                        $("#size").val(res.data[0].electricCharge);
+                        var workDays1 = [];
+                        var workDays2 = [];
+                        workDays1 = res.data[0].workDays.split(",");
+                        for (var i = 0; i < workDays1.length; i++) {
+                            if(workDays1[i] == 1){
+                                $("#thisWeek .week-select").find("li[data-innum=7]").addClass("active");
+                            } else {
+                                $("#thisWeek .week-select").find("li[data-innum=" + (workDays1[i] - 1) + "]").addClass("active");
+                            }
+                        };
+                        if(res.data.length > 1){
+                            $("#smallWeekSwitch").attr("checked","checked");
+                            $("#nextWeek").removeClass("hidden");
+                            workDays2 = res.data[1].workDays.split(",");
+                            for (var j = 0; j < workDays2.length; j++) {
+                                if(workDays2[j] == 1){
+                                    $("#nextWeek .week-select").find("li[data-innum=7]").addClass("active");
+                                } else {
+                                    $("#nextWeek .week-select").find("li[data-innum=" + (workDays2[j] - 1) + "]").addClass("active");
+                                }
+                            };
+                        }
+                    }
+                }
+            },token);
+        }
+
+        getWork();
+
+        function submit(){
+            var onWorkTime = $("#layuiTime1").val();
+            var offWorkTime = $("#layuiTime2").val();
+            var beginBreak = $("#layuiTime3").val();
+            var endBreak = $("#layuiTime4").val();
+            var addWorkTime = $("#layuiTime5").val();
+            var workDays = [];
+            var electricCharge = $("#size").val();
+            if(onWorkTime == ""){
+                layer.msg("请选择上班时间");
+                return false;
+            }
+            if(offWorkTime == ""){
+                layer.msg("请选择下班时间");
+                return false;
+            }
+            if(beginBreak == ""){
+                layer.msg("请选择午休开始时间");
+                return false;
+            }
+            if(endBreak == ""){
+                layer.msg("请选择午休结束时间");
+                return false;
+            }
+            if(addWorkTime == ""){
+                layer.msg("请选择加班下班时间");
+                return false;
+            }
+            if(electricCharge == ""){
+                layer.msg("请填写电费");
+                $("#size").val("");
+                return false;
+            }
+            if(electricCharge <= 0){
+                layer.msg("请填写正确数值");
+                $("#size").val("");
+                return false;
+            }
+            if(electricCharge > 1000){
+                layer.msg("电费没那么贵吧");
+                return false;
+            }
+            var week1 = "";
+            var week2 = "";
+            var thisWeekActive = document.querySelectorAll("#thisWeek .week-option.active");
+            var nextWeekActive = document.querySelectorAll("#nextWeek .week-option.active");
+            if(thisWeekActive.length == 0){
+                layer.msg("请选择上班周期");
+                return false;
+            }
+            week1 += thisWeekActive[0].getAttribute("data-id");
+            for(var i = 1; i < thisWeekActive.length; i++){
+                week1 += "," + thisWeekActive[i].getAttribute("data-id");
+            }
+            workDays.push(week1);
+            if ($("#smallWeekSwitch").is(":checked")){
+                if(nextWeekActive.length == 0){
+                    layer.msg("请选择上班周期");
+                    return false;
+                }
+                week2 += nextWeekActive[0].getAttribute("data-id");
+                for(var i = 1; i < nextWeekActive.length; i++){
+                    week2 += "," + nextWeekActive[i].getAttribute("data-id");
+                }
+                workDays.push(week2);
+            }
+            var url;
+            if(add != true){
+                url = "/company/updateWork";
+            } else {
+                url = "/company/addWork";
+            }
+            var mydata = JSON.stringify({
+                    "workTime": (onWorkTime + '~' + offWorkTime),
+                    "middayRest": (beginBreak + '~' + endBreak),
+                    "comeOffWork": (addWorkTime),
+                    "workDays": workDays,
+                    "electricCharge":Number(electricCharge)
+                });
+            var token = getCookie("token");
+            common.Ajax(url,mydata,"post",function(res){
+                if(res.code == "200"){
+                    layer.msg(res.msg,{icon:1,time:1000});
+                } else {
+                    layer.msg(res.msg,{icon:2,time:1000});
+                }
+            },token);
+        }
+    </script>
+</html>

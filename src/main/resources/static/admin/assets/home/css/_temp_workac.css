@@ -1,0 +1,31 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.company {
+	padding: 20px;
+}
+.company .listitem {
+	padding: 10px 0;
+}
+.btn-container {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px 80px 20px;
+}
+.user-btn {
+	height: 36px;
+	line-height: 36px;
+}
+.rename-text {
+	width: auto;
+	height: 22px;
+	border: 0;
+	text-align: center;
+	background-color: transparent;
+}

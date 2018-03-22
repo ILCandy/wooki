@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.token.mapper.TblTokenMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.token.entity.TblToken">
+		<id column="id" property="id" />
+		<result column="token_id" property="tokenId" />
+		<result column="user_id" property="userId" />
+		<result column="device_id" property="deviceId" />
+		<result column="device_name" property="deviceName" />
+		<result column="os" property="os" />
+		<result column="app_instance_id" property="appInstanceId" />
+		<result column="app_version" property="appVersion" />
+		<result column="remote_addr" property="remoteAddr" />
+		<result column="x_forward_addr" property="xForwardAddr" />
+		<result column="login_time" property="loginTime" />
+	</resultMap>
+
+</mapper>

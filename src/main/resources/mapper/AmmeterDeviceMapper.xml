@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.amme.device.mapper.AmmeterDeviceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.amme.device.entity.AmmeterDevice">
+		<id column="Uuid" property="Uuid" />
+		<result column="Aid" property="Aid" />
+		<result column="Cid" property="Cid" />
+		<result column="Pid" property="Pid" />
+		<result column="Isnode" property="Isnode" />
+		<result column="Jid" property="Jid" />
+		<result column="Type" property="Type" />
+		<result column="Devtype" property="Devtype" />
+		<result column="Devno" property="Devno" />
+		<result column="Title" property="Title" />
+		<result column="Picture" property="Picture" />
+		<result column="Value" property="Value" />
+		<result column="Expandvalue" property="Expandvalue" />
+		<result column="status" property="status" />
+		<result column="Disable" property="Disable" />
+		<result column="Order" property="Order" />
+		<result column="Price" property="Price" />
+		<result column="Money" property="Money" />
+		<result column="Token" property="Token" />
+		<result column="Authorizes" property="Authorizes" />
+		<result column="Param" property="Param" />
+		<result column="Expand_id" property="ExpandId" />
+		<result column="External_id" property="ExternalId" />
+		<result column="Adduid" property="Adduid" />
+		<result column="Lastuid" property="Lastuid" />
+		<result column="Addtime" property="Addtime" />
+		<result column="Lasttime" property="Lasttime" />
+		<result column="device_type" property="deviceType" />
+	</resultMap>
+
+	<resultMap id="TypeAndPowerMap" type="com.wooki.system.amme.device.entity.TypeAndAllpower">
+		<result column="allpower" property="allpower" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<sql id="BaseColumn">
+		Uuid,Aid,Cid,Pid,Isnode,Jid,Type,Devtype,Devno,Title,Picture,Value,Expandvalue,status
+		,Disable,Order,Price,Money,Token,Authorizes,Param,Expand_id,External_id,Adduid,Lastuid
+		,Addtime,Lasttime,device_type as deviceType
+	</sql>
+	<update id="updateByUuid">
+		update ammeter_device
+		<trim prefix="set" suffixOverrides=",">
+			<if test="companyId!=null"> company_id = #{companyId},</if>
+			<if test="deviceType!=null"> device_type = #{deviceType},</if>
+		</trim>
+		where Uuid = #{Uuid}
+	</update>
+
+	<select id="selectByUuid" resultMap="BaseResultMap">
+		select
+	 	<include refid="BaseColumn"/>
+		from ammeter_device
+		where Uuid = #{Uuid}
+	</select>
+
+	<select id="checkUuid" resultType="java.lang.Integer">
+		select count(1) as count from ammeter_device
+		where Uuid = #{Uuid}
+	</select>
+
+	<insert id="replaceBatchByUuid">
+		<foreach index="index" item="item" collection="deviceList" separator=";">
+			replace into
+			ammeter_device(<include refid="BaseColumn"/>)
+			VALUES
+			(#{item.Uuid},#{item.Aid},#{item.Cid},#{item.Pid},#{item.Isnode},#{item.Jid},
+			#{item.Type},#{item.Devtype},#{item.Devno},#{item.Title},#{item.Picture},
+			#{item.Value},#{item.Expandvalue},#{item.status},#{item.Disable},#{item.Order},
+			#{item.Price},#{item.Money},#{item.Token},#{item.Authorizes},#{item.Param},
+			#{item.ExpandId},#{item.ExternalId},#{item.Adduid},#{item.Lastuid},#{item.Addtime},
+			#{item.Lasttime},#{item.deviceType})
+		</foreach>
+	</insert>
+
+	<!-- 按照类型计算总用电量-->
+	<select id="typeAndAllpower" resultMap="TypeAndPowerMap">
+		select sum(e.allpower) as allpower,d.device_type as type
+		from ammeter_device d
+		join ammeter_device_expand e on d.Uuid = e.Uuid
+		where d.company_id = #{id}
+		group by  device_type
+	</select>
+</mapper>

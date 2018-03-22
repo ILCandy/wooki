@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_calc.css"/>
+        <title>申请记录</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+
+            <div class="status-bar mt40">
+                <div class="row">
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select1">
+                                <option value="0">请选择</option>
+                                <option value="1">会议室</option>
+                                <option value="2">空调</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select2">
+                                <option value="0">全部申请</option>
+                                <option value="1">测试公司1</option>
+                                <option value="2">测试公司2</option>
+                                <option value="3">测试公司3</option>
+                                <option value="4">测试公司4</option>
+                                <option value="5">测试公司5</option>
+                                <option value="6">测试公司6</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select3">
+                                <option value="1">今天</option>
+                                <option value="2">2018-1-27</option>
+                                <option value="3">2018-1-28</option>
+                                <option value="4">2018-1-29</option>
+                                <option value="5">2018-1-30</option>
+                                <option value="6">2018-1-31</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 mt20 bg-white">
+                <h3 class="tc pt20">申请记录</h3>
+                <div class="table-style">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <td align="center">类型</td>
+                                <td align="center">公司</td>
+                                <td align="center">会议室</td>
+                                <td align="center">开始时间</td>
+                                <td align="center">结束时间</td>
+                                <td align="center">状态</td>
+                                <td align="center">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="list">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div id="laypage"></div>
+            </div>
+
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+        isLogin();
+        if(!IsPC()){
+            loadSlider();
+        }
+        $(".load-mark").remove();
+        var nowPage = 1;
+        function sliceTime(timeText){
+            return timeText.substring(0,4) + "-" + timeText.substring(4,6) + "-" + timeText.substring(6,8) + " " + timeText.substring(8,10) + ":" + timeText.substring(10,12) + ":" + timeText.substring(12,14);
+        }
+
+        function sliceTime2(timeText){
+            return timeText.substring(8,10) + ":" + timeText.substring(10,12);
+        }
+
+        function getReserveList(nowPage){
+            var url = "/metting/reserveList?current=" + nowPage;
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata,"get", function (res) {
+                console.log(res);
+                var html = "";
+                if(res.code == 200){
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        html += '<tr data-id="' + res.data.records[i].id + '">';
+                        html += '<td align="center">会议室</td>';
+                        html += '<td align="center">测试公司</td>';
+                        html += '<td align="center">会议室A</td>';
+                        html += '<td align="center">' + sliceTime(res.data.records[i].beginTime) + '</td>';
+                        html += '<td align="center">' + sliceTime(res.data.records[i].endTime) + '</td>';
+                        html += '<td align="center">' + res.data.records[i].status + '</td>';
+                        html += '<td align="center">操作</td>';
+                        html += '</tr>';
+                    };
+                }
+                $("#list").html(html);
+
+                var pageHTML = "";
+
+                pageHTML += '<div class="layui-box layui-laypage layui-laypage-default" data-pages="' + res.data.pages + '">';
+                pageHTML += '<a href="javascript:;" class="layui-laypage-prev" data-page="homePage" onclick="doPage(this);">首页</a>';
+                pageHTML += '<a href="javascript:;" class="layui-laypage-prev" data-page="prev" onclick="doPage(this);">上一页</a>';
+                pageHTML += '<span class="layui-laypage-curr">';
+                pageHTML += '<em class="layui-laypage-em"></em>';
+                pageHTML += '<em>' + nowPage + '</em>';
+                pageHTML += '</span>';
+                pageHTML += '<a href="javascript:;" class="layui-laypage-next" data-page="next" onclick="doPage(this);">下一页</a>';
+                pageHTML += '<a href="javascript:;" class="layui-laypage-last" data-page="endPage" onclick="doPage(this);">尾页</a>';
+                pageHTML += '<span class="layui-laypage-count">共 ' + res.data.pages + ' 页</span>';
+                pageHTML += '<span class="layui-laypage-skip">';
+                pageHTML += '到第<input min="1" value="1" class="layui-input" type="text">页<button type="button" class="layui-laypage-btn" data-page="skip" onclick="doPage(this);">确定</button>';
+                pageHTML += '</span>';
+                pageHTML += '</div>';
+                $("#laypage").html(pageHTML);
+            },token);
+        }
+        getReserveList(1);
+
+        function doPage(n){
+            var pageType = $(n).attr("data-page");
+            var pages = $(n).closest(".layui-laypage").attr("data-pages");
+            var skipPage = $(n).parent().find(".layui-input").val();
+
+            if(pageType == "next"){
+                if(nowPage == pages){
+                    layer.msg("当前页已是尾页",{time:1000});
+                    return false;
+                }
+                nowPage += 1;
+                getReserveList(nowPage);
+            }
+            if(pageType == "endPage"){
+                if(nowPage == pages){
+                    layer.msg("当前页已是尾页",{time:1000});
+                    return false;
+                }
+                nowPage = pages;
+                getReserveList(nowPage);
+            }
+            if(pageType == "prev"){
+                if(nowPage == 1){
+                    layer.msg("当前页已是首页",{time:1000});
+                    return false;
+                }
+                nowPage -= 1;
+                getReserveList(nowPage);
+            }
+            if(pageType == "homePage"){
+                if(nowPage == 1){
+                    layer.msg("当前页已是首页",{time:1000});
+                    return false;
+                }
+                nowPage = 1;
+                getReserveList(nowPage);
+            }
+            if(pageType == "skip"){
+                if(isNaN(Number(skipPage))){
+                    layer.msg("请输入数字",{time:1000});
+                    skipPage = $(n).parent().find(".layui-input").val("");
+                    return false;
+                }
+                if(Number(skipPage) > pages || skipPage < 1){
+                    layer.msg("请输入有效页码",{time:1000});
+                    $(n).parent().find(".laypage_skip").val("");
+                    return false;
+                }
+                if(Number(skipPage) == nowPage){
+                    layer.msg("当前页已是跳转页",{time:1000});
+                    return false;
+                }
+                nowPage = Number(skipPage);
+                getReserveList(nowPage);
+            }
+        }
+    </script>
+</html>

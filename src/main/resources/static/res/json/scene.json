@@ -1,0 +1,24 @@
+{
+    "success":true,
+    "msg":"加载成功！",
+    "list":[
+        {
+            "scene_name":"上班",
+            "scene_id":"aaaaaa",
+            "scene_icon":"../assets/img/logo.png",
+            "online_num":"5"
+        },
+        {
+            "scene_name":"下班",
+            "scene_id":"bbbbbb",
+            "scene_icon":"../assets/img/logo.png",
+            "online_num":"5"
+        },
+        {
+            "scene_name":"加班",
+            "scene_id":"cccccc",
+            "scene_icon":"../assets/img/logo.png",
+            "online_num":"5"
+        }
+    ]
+}

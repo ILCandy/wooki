@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.device.mapper.TblDeviceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.device.entity.TblDevice">
+		<id column="id" property="id" />
+		<result column="gateway_id" property="gatewayId" />
+		<result column="name" property="name" />
+		<result column="short_addr" property="shortAddr" />
+		<result column="end_point" property="endPoint" />
+		<result column="profile_id" property="profileId" />
+		<result column="device_id" property="deviceId" />
+		<result column="switch_status" property="switchStatus" />
+		<result column="online" property="online" />
+		<result column="ieee" property="ieee" />
+		<result column="sn" property="sn" />
+		<result column="zone_type" property="zoneType" />
+		<result column="battery_power" property="batteryPower" />
+		<result column="update_time" property="updateTime" />
+		<result column="add_time" property="addTime" />
+		<result column="data" property="data" />
+		<result column="group_id" property="groupId" />
+		<result column="company_id" property="companyId" />
+		<result column="group_name" property="groupName"/>
+		<result column="selectKey" property="selectKey"/>
+	</resultMap>
+
+
+	<resultMap id="GroupResultMap" type="com.wooki.system.tbl.device.entity.GroupDevice">
+		<collection property="deviceList" ofType="com.wooki.system.tbl.device.entity.TblDevice">
+			<id column="id" property="id" />
+			<result column="gateway_id" property="gatewayId" />
+			<result column="name" property="name" />
+			<result column="short_addr" property="shortAddr" />
+			<result column="end_point" property="endPoint" />
+			<result column="profile_id" property="profileId" />
+			<result column="device_id" property="deviceId" />
+			<result column="switch_status" property="switchStatus" />
+			<result column="online" property="online" />
+			<result column="ieee" property="ieee" />
+			<result column="sn" property="sn" />
+			<result column="zone_type" property="zoneType" />
+			<result column="battery_power" property="batteryPower" />
+			<result column="update_time" property="updateTime" />
+			<result column="add_time" property="addTime" />
+			<result column="data" property="data" />
+			<result column="group_id" property="groupId" />
+			<result column="group_name" property="groupName"/>
+		</collection>
+	</resultMap>
+
+
+	<resultMap id="GroupOnlineMap" type="com.wooki.system.tbl.device.entity.GroupOnline">
+		<result column="group_id" property="groupId" />
+		<result column="count" property="count" />
+	</resultMap>
+
+
+	<resultMap id="SceneOnlineMap" type="com.wooki.system.tbl.device.entity.SceneOnline">
+		<result column="scene_id" property="sceneId" />
+		<result column="count" property="count" />
+	</resultMap>
+
+
+	<!-- 查询网关列表包含的所有的设备 -->
+	<select id="selectDevices" resultMap="BaseResultMap">
+		select d.*,g.name as group_name from tbl_device d
+		join tbl_group g on d.group_id = g.id
+		where 1=1
+		<if test="gateWayList !=null">
+			and d.gateway_id in
+			<foreach collection="gateWayList" index="index" item="item" open="(" separator="," close=")">
+				#{item.gatewayId}
+			</foreach>
+		</if>
+		order by group_id
+	</select>
+
+	<select id="selectGroupOnline" resultMap="GroupOnlineMap">
+		select group_id,count(*) as count
+		from tbl_device
+		where
+		company_id = #{companyId}
+		and online = #{online}
+		group by group_id;
+	</select>
+
+	<!--<select id="selectSceneOnline" resultMap="SceneOnlineMap">-->
+		<!--select scene_id,count(1) as count-->
+		<!--from tbl_device-->
+		<!--where-->
+		<!--company_id = #{companyId}-->
+	 	<!--and online = #{online}-->
+		<!--group by scene_id;-->
+	<!--</select>-->
+
+	<select id="selectSceneOnline" resultMap="SceneOnlineMap">
+		select scene_id,count(1) as count
+		from tbl_scene s
+		join tbl_device_scene ds on s.id = ds.scene_id
+		join tbl_device d on ds.device_id = d.id
+		and d.online = #{device.online}
+		where 1=1
+		<if test="list!=null">
+			and s.id in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item.id}
+			</foreach>
+		</if>
+		group by scene_id
+	</select>
+
+	<select id="selectBySelectKey" resultMap="BaseResultMap">
+		select * from tbl_device
+		where
+		select_key = #{selectKey}
+		<!--1=1-->
+		<!--<if test="gatewayId!=null"> and gateway_id = #{gatewayId}</if>-->
+		<!--<if test="shortAddr!=null"> and short_addr = #{shortAddr}</if>-->
+		<!--<if test="endPoint!=null"> and end_point = #{endPoint}</if>-->
+	</select>
+
+	<update id="updateBySelectKey" >
+		update tbl_device
+		<trim prefix="set" suffixOverrides=",">
+			<if test="profileId!=null"> profile_id = #{profileId},</if>
+			<if test="deviceId!=null"> device_id = #{deviceId},</if>
+			<if test="switchStatus!=null"> switch_status = #{switchStatus},</if>
+			<if test="online!=null"> online = #{online},</if>
+			<if test="ieee!=null"> ieee = #{ieee},</if>
+			<if test="sn!=null"> sn = #{sn},</if>
+			<if test="zoneType!=null"> zone_type = #{zoneType},</if>
+			<if test="batteryPower!=null"> battery_power = #{batteryPower},</if>
+			<if test="data!=null"> data = #{data},</if>
+		</trim>
+		where
+		select_key = #{selectKey}
+	</update>
+</mapper>

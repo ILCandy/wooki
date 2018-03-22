@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.lock.mapper.TblLockDeviceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.lock.entity.TblLockDevice">
+		<id column="id" property="id" />
+		<result column="dev_name" property="devName" />
+		<result column="dev_sn" property="devSn" />
+		<result column="dev_type" property="devType" />
+		<result column="door_no" property="doorNo" />
+		<result column="floor_count" property="floorCount" />
+		<result column="section" property="section" />
+		<result column="section_key" property="sectionKey" />
+		<result column="company_id" property="companyId" />
+	</resultMap>
+
+	<insert id="updateLockDevice">
+		<foreach item="item" index="index" collection="lockDevices">
+			replace into tbl_lock_device
+			(id,dev_name,dev_sn,dev_type,door_no,floor_count,section,section_key)
+			values
+			(#{item.id},#{item.devName},#{item.devSn},#{item.devType},#{item.doorNo},#{item.floorCount},#{item.section},#{item.sectionKey})
+		</foreach>
+	</insert>
+</mapper>

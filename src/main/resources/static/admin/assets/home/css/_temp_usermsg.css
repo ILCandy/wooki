@@ -1,0 +1,41 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.status-bar {
+    margin: 20px;
+}
+.status-bar .export {
+    font-size: 16px;
+    color: #90a4ae;
+    cursor: pointer;
+}
+.usermsg-container {
+    background-color: #fff;
+    padding: 40px 20px 20px;
+}
+.usermsg-container .headimg {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 40px auto;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media (min-width: 768px){
+    .form-horizontal .control-option {
+        padding-top: 7px;
+        margin-bottom: 0;
+        text-align: left;
+    }
+}
+@media (max-width: 768px){
+    .form-horizontal .control-option {
+        padding-top: 7px;
+    }
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.amme.info.mapper.AmmeterHourInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.amme.info.entity.AmmeterHourInfo">
+		<id column="id" property="id" />
+		<result column="Uuid" property="Uuid" />
+		<result column="time" property="time" />
+		<result column="allpower" property="allpower" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<resultMap id="MonthResultMap" type="com.wooki.system.amme.info.entity.AmmeterMonthInfo">
+		<result column="Uuid" property="Uuid" />
+		<result column="time" property="time" />
+		<result column="allpower" property="allpower" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<resultMap id="DayResultMap" type="com.wooki.system.amme.info.entity.AmmeterDayInfo">
+		<result column="Uuid" property="Uuid" />
+		<result column="time" property="time" />
+		<result column="allpower" property="allpower" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<select id="selectMonthSum" resultMap="MonthResultMap">
+		select Uuid,sum(allpower) as allpower
+		from ammeter_day_info
+		<where>
+			${ew.sqlSegment}
+		</where>
+		group by Uuid
+	</select>
+
+	<select id="selectDaySum" resultMap="DayResultMap">
+		select Uuid,sum(allpower) as allpower
+		from ammeter_hour_info
+		<where>
+			${ew.sqlSegment}
+		</where>
+		group by Uuid
+	</select>
+
+</mapper>

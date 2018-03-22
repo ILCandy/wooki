@@ -1,0 +1,18 @@
+www.net.cn
+U: 武智科技    P:wooki_630
+
+ssh:
+120.79.141.114
+root
+Ssdfr%$78
+文件都集中放在/data目录下面
+
+mysql:
+rm-wz936o7nysnexzz7s.mysql.rds.aliyuncs.com:3306
+wookitech
+root
+sffjkh*76
+
+platform1.wookitech.com
+
+mysql -h rm-wz936o7nysnexzz7s.mysql.rds.aliyuncs.com -uroot -psffjkh*76

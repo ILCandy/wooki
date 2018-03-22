@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en"><meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/_temp_scene.css"/>
+    <title>联动模式</title>
+</head>
+<body>
+<div class="container">
+
+    <div class="row cards">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card-container">
+                <div class="card-header">
+                    <div class="names pull-left f20">联动1</div>
+                    <div class="plans pull-right">
+                        <span class="clock glyphicon glyphicon-time f20"></span>
+                    </div>
+                </div>
+                <div class="card-main">
+                    <div class="state" style="background-image: url('../assets/img/icon-scene-default.png');"></div>
+                    <div class="center w100">
+                        <a href="javascript:void(0);" class="user-button green">立即执行</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pull-left">在线设备数：<span class="t-green">20</span></div>
+                    <div class="pull-right setting" onclick="windowOpen(1,0);">
+                        <span class="glyphicon glyphicon-cog f20"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card-container">
+                <div class="card-header">
+                    <div class="names pull-left f20">联动1</div>
+                    <div class="plans pull-right">
+                        <span class="clock glyphicon glyphicon-time f20"></span>
+                    </div>
+                </div>
+                <div class="card-main">
+                    <div class="state" style="background-image: url('../assets/img/icon-scene-default.png');"></div>
+                    <div class="center w100">
+                        <a href="javascript:void(0);" class="user-button green">立即执行</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pull-left">在线设备数：<span class="t-green">20</span></div>
+                    <div class="pull-right setting" onclick="windowOpen(1,0);">
+                        <span class="glyphicon glyphicon-cog f20"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card-container">
+                <div class="card-header">
+                    <div class="names pull-left f20">联动1</div>
+                    <div class="plans pull-right">
+                        <span class="clock glyphicon glyphicon-time f20"></span>
+                    </div>
+                </div>
+                <div class="card-main">
+                    <div class="state" style="background-image: url('../assets/img/icon-scene-default.png');"></div>
+                    <div class="center w100">
+                        <a href="javascript:void(0);" class="user-button green">立即执行</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pull-left">在线设备数：<span class="t-green">20</span></div>
+                    <div class="pull-right setting" onclick="windowOpen(1,0);">
+                        <span class="glyphicon glyphicon-cog f20"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card-container">
+                <div class="card-header">
+                    <div class="names pull-left f20">联动1</div>
+                    <div class="plans pull-right">
+                        <span class="clock glyphicon glyphicon-time f20"></span>
+                    </div>
+                </div>
+                <div class="card-main">
+                    <div class="state" style="background-image: url('../assets/img/icon-scene-default.png');"></div>
+                    <div class="center w100">
+                        <a href="javascript:void(0);" class="user-button green">立即执行</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pull-left">在线设备数：<span class="t-green">20</span></div>
+                    <div class="pull-right setting" onclick="windowOpen(1,0);">
+                        <span class="glyphicon glyphicon-cog f20"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card-container add-card">
+                <span class="icon glyphicon glyphicon-plus"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/assets/js/jquery-2.1.3.js"></script>
+<script type="text/javascript" src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/lib/layer/1.9.3/layer.js"></script>
+<script>
+    function windowOpen(setType,setId){
+        layer.open({
+            type: 2,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            shade: 0.2,
+            move: false,
+            scrollbar: false,
+            area: ['100%', '100%'],
+            content: '_temp_sceneSet.html?setType=' + setType + '&setId=' + setId
+        });
+    }
+</script>
+</html>

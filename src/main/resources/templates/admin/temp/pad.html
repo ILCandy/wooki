@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/pad.css"/>
+        <title>消息展示</title>
+    </head>
+    <body>
+        <div class="load-mark" id="loadMark"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="cards weather-01" id="message">
+                        <div class="weather">
+                            <span class="weather-icon">晴</span>
+                            <span class="weather-num">23℃</span>
+                            <p class="weather-text">晴 北风1~3级</p>
+                            <p class="weather-text">空气污染指数：199（良好）</p>
+                        </div>
+                        <div class="date">
+                            <p class="time-text" id="time">00:00</p>
+                            <p class="date-text">2018/03/06&nbsp;&nbsp;&nbsp;&nbsp;周二</p>
+                            <p class="seat"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;深圳</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="cards" id="notice">
+                        <div class="notice-title"><i class="glyphicon glyphicon-volume-down"></i>新闻公告</div>
+                        <div class="notice-main"><p>A区 301室 09:00-10:00，某教授讲座</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="booking">
+                        <li class="list">
+                            <span class="text">A会议室：</span>
+                            <span class="state green">空闲中</span>
+                            <span class="text">今日预定：10:00-11:00</span>
+                        </li>
+                        <li class="list">
+                            <span class="text">A会议室：</span>
+                            <span class="state red">使用中</span>
+                            <span class="text">今日预定：10:00-11:00</span>
+                        </li>
+                        <li class="list">
+                            <span class="text">A会议室：</span>
+                            <span class="state red">使用中</span>
+                            <span class="text">今日预定：10:00-11:00</span>
+                        </li>
+                        <li class="list">
+                            <span class="text">A会议室：</span>
+                            <span class="state green">空闲中</span>
+                            <span class="text">今日预定：10:00-11:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="energy">
+                        <div class="canvas-container" id="main4"></div>
+                        <p class="tc">总用电量：628kW-h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/echarts/echarts.min.js"></script>
+    <script>
+
+        var child=document.getElementById("loadMark");
+        child.parentNode.removeChild(child);
+
+        function getWeather(){
+            $.ajax({
+                url: "http://www.weather.com.cn/data/cityinfo/101280601.html",
+                type: "GET",
+                dataType: "jsonp", //指定服务器返回的数据类型
+                success: function(data) {
+                    var result = JSON.stringify(data); //json对象转成字符串
+                    $("#text").val(result);
+                }
+            });
+        }
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = (m < 10 ? ("0" + m) : m);
+            s = (s < 10 ? ("0" + s) : s);
+            document.getElementById('time').innerHTML = h + ":" + m;
+            t = setTimeout('startTime()', 10000);
+        }
+        startTime();
+
+        var myChart4 = echarts.init(document.getElementById('main4'));
+        // 指定图表的配置项和数据
+        var option4 = {
+            title: {
+                text: '今日用能情况',
+                subtext: '',
+                left: 'center'
+            },
+            legend: {
+                // orient: 'vertical',
+                // top: 'middle',
+                bottom: 10,
+                left: 'center',
+                data: ['开关', '空调','插座','其他']
+            },
+            series : [
+                {
+                    color:['#fad771','#1ab394', '#fc5844' , '#d53a35'],
+                    type: 'pie',
+                    radius : '65%',
+                    center: ['50%', '50%'],
+                    selectedMode: 'single',
+                    data:[
+                        {value:535, name: '开关'},
+                        {value:510, name: '空调'},
+                        {value:634, name: '插座'},
+                        {value:735, name: '其他'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart4.setOption(option4);
+    </script>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.company.mapper.TblCompanyWorkMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.company.entity.TblCompanyWork">
+		<id column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="update_time" property="updateTime" />
+		<result column="add_time" property="addTime" />
+		<result column="work_time" property="workTime" />
+		<result column="midday_rest" property="middayRest" />
+		<result column="come_off_work" property="comeOffWork" />
+		<result column="electric_charge" property="electricCharge" />
+		<result column="period" property="period" />
+		<result column="use_flag" property="useFlag" />
+		<result column="work_days" property="workDays" />
+	</resultMap>
+
+</mapper>

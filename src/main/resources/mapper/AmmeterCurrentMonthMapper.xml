@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.amme.info.mapper.AmmeterCurrentMonthMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.amme.info.entity.AmmeterCurrentMonth">
+		<id column="Uuid" property="Uuid" />
+		<result column="allpower" property="allpower" />
+		<result column="add_time" property="addTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<update id="updateByUuid" >
+		update ammeter_current_month
+		set allpower = allpower + #{allpower}
+		where Uuid=#{Uuid}
+	</update>
+
+	<update id="updateBatchByUuid" >
+		<foreach index="index" item="item" collection="list" separator=";">
+			update ammeter_current_month
+			set allpower = allpower + #{item.allpower}
+			where Uuid=#{item.Uuid}
+		</foreach>
+	</update>
+
+	<update id="setZero">
+		update ammeter_current_month
+		set allpower = 0
+	</update>
+
+	<select id="currentMonthInfo" resultType="java.lang.Double">
+		select sum(allpower) as allpower from
+		ammeter_current_month
+		where 1=1
+		<if test="Uuids!=null">
+			and Uuid in
+			<foreach item="item" index="index" collection="Uuids" open="("
+					 separator="," close=")">
+				#{item.Uuid}
+			</foreach>
+		</if>
+	</select>
+</mapper>

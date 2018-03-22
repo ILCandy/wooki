@@ -1,0 +1,74 @@
+{
+    "code": 200,
+    "data": [
+        [
+            {
+                "addTime": 1516033338000,
+                "deviceId": "0002",
+                "endPoint": "11",
+                "gatewayId": 36381,
+                "groupId": 1,
+                "groupName": "分组1",
+                "id": 2,
+                "name": "测试",
+                "online": 1,
+                "profileId": "0104",
+                "shortAddr": "f289",
+                "sn": "464235362B5A535731494B4A312E39",
+                "switchStatus": 1,
+                "updateTime": 1515082941000
+            },
+            {
+                "addTime": 1516033338000,
+                "deviceId": "0002",
+                "endPoint": "11",
+                "gatewayId": 36381,
+                "groupId": 1,
+                "groupName": "分组1",
+                "id": 6,
+                "name": "测试3",
+                "online": 1,
+                "profileId": "0104",
+                "shortAddr": "f289",
+                "sn": "464235362B5A535731494B4A312E39",
+                "switchStatus": 1,
+                "updateTime": 1515082941000
+            }
+        ],
+        [
+            {
+                "addTime": 1516033338000,
+                "deviceId": "0002",
+                "endPoint": "10",
+                "gatewayId": 36381,
+                "groupId": 2,
+                "groupName": "分组2",
+                "id": 7,
+                "name": "测试4",
+                "online": 1,
+                "profileId": "0104",
+                "shortAddr": "f289",
+                "sn": "464235362B5A535731494B4A312E39",
+                "switchStatus": 1,
+                "updateTime": 1515082941000
+            },
+            {
+                "deviceId": "0002",
+                "endPoint": "12",
+                "gatewayId": 36381,
+                "groupId": 2,
+                "groupName": "分组2",
+                "id": 5,
+                "ieee": "68D13A15004B1200",
+                "name": "测试2",
+                "online": 3,
+                "profileId": "0104",
+                "shortAddr": "F289",
+                "sn": "464235362B5A535731494B4A312E39",
+                "switchStatus": 1,
+                "zoneType": "0000"
+            }
+        ]
+    ],
+    "msg": "操作成功"
+}

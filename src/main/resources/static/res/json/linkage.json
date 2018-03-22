@@ -1,0 +1,24 @@
+{
+    "success":true,
+    "msg":"加载成功！",
+    "list":[
+        {
+            "scene_name":"上班",
+            "scene_id":"aaaaaa",
+            "scene_icon":"http://img1.wezhan.cn/content/sitefiles/91416/images/10737541_logo_904e017d-d6e9-44bc-baeb-1d94e257e7ef_resize_picture.png",
+            "online_num":"5"
+        },
+        {
+            "scene_name":"下班",
+            "scene_id":"bbbbbb",
+            "scene_icon":"http://img1.wezhan.cn/content/sitefiles/91416/images/10737541_logo_904e017d-d6e9-44bc-baeb-1d94e257e7ef_resize_picture.png",
+            "online_num":"5"
+        },
+        {
+            "scene_name":"加班",
+            "scene_id":"cccccc",
+            "scene_icon":"http://img1.wezhan.cn/content/sitefiles/91416/images/10737541_logo_904e017d-d6e9-44bc-baeb-1d94e257e7ef_resize_picture.png",
+            "online_num":"5"
+        }
+    ]
+}

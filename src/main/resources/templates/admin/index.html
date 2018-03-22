@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/user.css"/>
+        <title>首页</title>
+        <script>
+            function fold(){
+                var winWidth;
+                if (window.innerWidth){
+                    winWidth = window.innerWidth;
+                } else if ((document.body) && (document.body.clientWidth)) {
+                    winWidth = document.body.clientWidth;
+                }
+                if(winWidth < 1000 && winWidth > 640){
+                    document.getElementById('asideWrapper').classList.add("fold");
+                    document.getElementById('articleWrapper').classList.add("fold");
+                } else if (winWidth > 1000) {
+                    document.getElementById('asideWrapper').classList.remove("fold");
+                    document.getElementById('articleWrapper').classList.remove("fold");
+                }
+            }
+        </script>
+    </head>
+    <body onload="fold();" onresize="fold();">
+        <div class="load-mark"></div>
+        <div class="navbar-wrapper">
+            <div class="nav">
+                <span class="logo" title="绿蚁智能"><img src="assets/img/header-logo.jpg" alt="绿蚁智能"/></span>
+                <ul class="userbar">
+                    <li class="dropDown" id="dropDown_A">
+                        <a class="dropDown_A">
+                            <span class="icon headimg" style="background-image: url(assets/img/white-logo.png)"></span>
+                            <span class="text pr20" id="companyName">&nbsp;</span>
+                            <span class="arrow glyphicon glyphicon-menu-down f10"></span>
+                        </a>
+                        <div class="dropDown-menu" id="userDrop">
+                            <span class="angle size12"></span>
+                            <ul id="userDropDown">
+                                <li class="dropDown-list" data-href="temp/usermsg.html">
+                                    <span class="icon glyphicon glyphicon-user"></span>
+                                    <span class="dropDown-text">信息修改</span>
+                                </li>
+                                <!-- <li class="dropDown-list" onclick="switchUser()">
+                                    <span class="icon glyphicon glyphicon-sort"></span>
+                                    <span class="dropDown-text">切换账户</span>
+                                </li> -->
+                                <li class="dropDown-list" onclick="signOut()">
+                                    <span class="icon glyphicon glyphicon-off"></span>
+                                    <span class="dropDown-text">退出</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="notice">
+                        <span id="bell" onclick="getNewDevice()" class="icon icon-bell" title="系统通知"><i class="dot"></i></span>
+
+                        <div class="dropDown-notice" id="dropDownNotice">
+                            <span class="angle size12"></span>
+                            <ul id="newDevice">
+                                
+                            </ul>
+                            <!-- <p class="text-center">全部消息 <span class="glyphicon glyphicon-menu-down"></span></p> -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="aside-wrapper" id="asideWrapper">
+            <div class="aside-menu-tab" onclick="menuToggle()">
+                <div class="text-center"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+            </div>
+            <dl class="aside-menu" id="asideMenu">
+                <dd class="aside-menu-list active" data-href="temp/report.html">
+                    <span class="icon list-icon-report"></span>
+                    <span class="text">报表查询</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/manage.html">
+                    <span class="icon list-icon-manage"></span>
+                    <span class="text">设备管控</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/scene.html">
+                    <span class="icon list-icon-scene"></span>
+                    <span class="text">情景模式</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/linkage.html">
+                    <span class="icon list-icon-linkage"></span>
+                    <span class="text">联动模式</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/office.html">
+                    <span class="icon list-icon-office"></span>
+                    <span class="text">办公设置</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/systemLogs.html">
+                    <span class="icon list-icon-systemLogs"></span>
+                    <span class="text">设备日志</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/notices.html">
+                    <span class="icon list-icon-notices"></span>
+                    <span class="text">新闻公告</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/record.html">
+                    <span class="icon list-icon-workacList"></span>
+                    <span class="text">申请记录</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+
+                <dd class="tc white">--</dd>
+
+                <dd class="aside-menu-list" data-href="temp/meeting.html">
+                    <span class="icon list-icon-meeting"></span>
+                    <span class="text">会议室申请</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/workac.html">
+                    <span class="icon list-icon-workacBooking"></span>
+                    <span class="text">空调申请</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/order.html">
+                    <span class="icon list-icon-workacList"></span>
+                    <span class="text">我的订单</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/chargeTable.html">
+                    <span class="icon list-icon-chargeTable"></span>
+                    <span class="text">计费结算</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                
+                <!-- <dd class="aside-menu-list" data-href="temp/companyList.html">
+                    <span class="icon list-icon-office"></span>
+                    <span class="text">公司列表</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/bindDevice.html">
+                    <span class="icon list-icon-linkage"></span>
+                    <span class="text">绑定网关</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/deviceList.html">
+                    <span class="icon list-icon-office"></span>
+                    <span class="text">中控设备</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd>
+                <dd class="aside-menu-list" data-href="temp/acList.html">
+                    <span class="icon list-icon-office"></span>
+                    <span class="text">空调设备</span>
+                    <span class="arrow glyphicon glyphicon-menu-right f12"></span>
+                    <span class="angle"></span>
+                </dd> -->
+            </dl>
+            <div class="aside-summary">
+                <div class="text">智能节电</div>
+                <div class="main text-center"><span class="f20 t-green" id="useDays">0</span><span class="unit"> 天</span></div>
+            </div>
+        </div>
+
+        <div class="article-wrapper" id="articleWrapper">
+            <div class="iframe-container" id="iframeContainer">
+                <div style="display:none" class="loading"></div>
+                <iframe class="iframe-show" id="iframeShow" scrolling="yes" src="temp/report.html"></iframe>
+            </div>
+            <p class="tc" style="margin-top:-34px;">Copyright&nbsp;©&nbsp;武智科技2017. All rights reserved.</p>
+        </div>
+
+        <div class="footer"></div>
+    </body>
+
+    <script type="text/javascript" src="assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="assets/lib/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="assets/js/user.js"></script>
+    <script>
+        
+        isLogin();
+        if(!IsPC()){
+            var relHref = $("#iframeShow").attr("src");
+            parent.location.href = relHref;
+        } else {
+            $(".load-mark").remove();
+        }
+        function isIE() { //ie?
+            if ( !! window.ActiveXObject || "ActiveXObject" in window)
+                return true;
+            else
+                return false;
+        }
+        var ierefresh = getCookie("ierefresh");
+        if(isIE()){
+            console.log(ierefresh + "+ 1");
+            if(ierefresh == null || ierefresh == ""){
+                setCookie("ierefresh","true");
+                document.getElementById('iframeShow').contentWindow.location.reload(true);
+                window.location.reload();
+            };
+        }
+
+        function skipIframe(e,returnUrl){
+            var iframeContainer = document.getElementById("iframeContainer");
+            var iframeElement = document.getElementById("iframeShow");
+            var iframeHref;
+            if(document.getElementsByClassName("aside-menu-list active").length > 0){
+                document.getElementsByClassName("aside-menu-list active")[0].classList.remove("active");
+            }
+            if(e.target && e.target.nodeName == "SPAN") {
+                e.target.parentNode.classList.add("active");
+                iframeHref = e.target.parentNode.getAttribute("data-href");
+            } else if(e.target && e.target.nodeName == "DD") {
+                e.target.classList.add("active");
+                iframeHref = e.target.getAttribute("data-href");
+            } else if(e.target && e.target.nodeName == "LI") {
+                e.target.classList.add("active");
+                iframeHref = e.target.getAttribute("data-href");
+            }
+
+
+            if(iframeHref != undefined){
+                if(returnUrl != undefined && returnUrl != ""){
+                    iframeHref += "?returnUrl=" + returnUrl;
+                }
+                // var timestamp = Date.parse(new Date());
+                // alert(iframeHref + "?time=" + timestamp);
+                iframeContainer.innerHTML = '<iframe class="iframe-show" id="iframeShow" scrolling="yes" src=' + iframeHref + '></iframe>';
+
+                /*iframeElement.src = iframeHref;*/
+                if(isIE()){
+                    document.getElementById('iframeShow').contentWindow.location.reload(true);
+                };
+            }
+        }
+        document.getElementById("asideMenu").addEventListener("click",function(e) {
+            skipIframe(e);
+        });
+        document.getElementById("userDropDown").addEventListener("click",function(e) {
+            var relHref = encodeURIComponent($("#iframeShow").attr("src"));
+            skipIframe(e,relHref);
+        });
+
+        function switchUser(){
+            layer.confirm('确认要切换用户吗？',function(index){
+                parent.location.href = "/";
+            });
+        }
+
+        function signOut(){
+            layer.confirm('确认要退出吗？',function(index){
+                setCookie("ierefresh","");
+                parent.location.href = "/";
+            });
+        }
+
+        function menuToggle(){
+            if($("#asideWrapper").hasClass("fold")){
+                $("#asideWrapper").removeClass("fold");
+                $("#articleWrapper").removeClass("fold");
+            } else {
+                $("#asideWrapper").addClass("fold");
+                $("#articleWrapper").addClass("fold");
+            }
+
+            /*var asideWrapper = document.getElementById("asideWrapper");
+            var articleWrapper = document.getElementById("articleWrapper");
+            if(asideWrapper.classList.value.indexOf("fold") === -1){
+
+            } else {
+                asideWrapper.classList.remove("fold");
+                articleWrapper.classList.remove("fold");
+            }*/
+        }
+
+        $("#dropDown_A").hover(function(){
+            $("#dropDown_A").addClass("active");
+            $("#userDrop").addClass("active");
+        },function(){
+            $("#dropDown_A").removeClass("active");
+            $("#userDrop").removeClass("active");
+        });
+
+        /*$("#bell").hover(function(){
+            $("#dropDownNotice").addClass("active");
+        },function(){
+            $("#dropDownNotice").removeClass("active");
+        });*/
+
+        var areaObj = {}
+        function getNewDevice(){
+            if($("#dropDownNotice").hasClass("active")){
+                $("#dropDownNotice").removeClass("active");
+                $(".switch-detail").remove();
+            } else {
+                $("#dropDownNotice").addClass("active");
+                var token = getCookie("token");
+                var data = JSON.stringify({
+                    "groupId": "0"
+                });
+                var html = '';
+                var html1 = '';
+                var html2 = '';
+                var html3 = '';
+                common.Ajax("/group/device", data, "post", function (res) {
+                    if(res.code == "200"){
+                        for(var j = 0; j < res.data.length; j++){
+                            switch(res.data[j].deviceId){
+                                case "0002":
+                                    html1 += '<li class="dropDown-list" data-name="' + (res.data[j].name || "未命名") + '" data-id="' + res.data[j].id + '">';
+                                    html1 += '<i class="noticeDot active"></i>';
+                                    html1 += '<span class="date">' + new Date(res.data[j].addTime).toLocaleString() + '</span>';
+                                    html1 += '<span class="msg">发现新设备</span>';
+                                    html1 += '<span class="sysname">【' + (res.data[j].name || "未命名") + '】</span>';
+                                    html1 += '<span class="option set" onclick="noticeSet(this,\'' + res.data[j].id + '\')">设置</span>';
+                                    html1 += '<span class="option" onclick="ignore(this)">忽略</span>';
+                                    html1 += '</li>';
+                                    break;
+                                case "2":
+                                    html2 += '';
+                                    break;
+                                case "3":
+                                    html3 += '';
+                                    break;
+                            }
+                        }
+                    }
+                    if(html1 == ""){
+                        html1 += '<li class="dropDown-list">暂无未分区设备</li>'
+                    }
+                    $("#newDevice").html(html1);
+                },token);
+
+                if(areaObj.length == undefined || areaObj.length == 0){
+                    common.Ajax("/group/list", "", "get", function (res) {
+                        if(res.code == "200"){
+                            areaObj = res.data;
+                        }
+                    },token);
+                }
+                
+            }
+        }
+
+        function lampSwitch(that){
+            if (!$(that).hasClass("active")) {
+                $(that).addClass("active");
+            } else {
+                $(that).removeClass("active");
+            }
+        }
+
+        function noticeSet(that,sysId){
+            var sysName = $(that).closest("li").attr("data-name");
+            var html = "";
+            html += '<div class="switch-detail">';
+            html += '<div class="leftC home"><div class="switch-control lamp "></div>';
+                /*'<div class="icon-clock"><span class="glyphicon glyphicon-time"></span></div>' +*/
+            html += '</div>';
+            html += '<ul class="rightC home">';
+            html += '<li class="rightC-list">';
+            html += '<div class="tit">设备名称：</div>';
+            html += '<div class="main t-white">';
+            html += '<div class="btn-group timing-select">';
+
+            html += '<select name="" id="" class="area-select">';
+            html += '<option value="0">请选择区域</option>';
+            for (var i = 0; i < areaObj.length; i++) {
+                html += '<option value="' + areaObj[i].id + '">' + areaObj[i].name + '</option>';
+            };
+            html += '</select>';
+
+            /*html += '<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+            html += '选择区域&nbsp;&nbsp;<span class="caret"></span>';
+            html += '</button>';
+            html += '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+            html += '<li><a href="javascript:void(0);">A区</a></li>';
+            html += '<li><a href="javascript:void(0);">B区</a></li>';
+            html += '</ul>';*/
+
+            html += '</div>';
+
+            html += '<span class="device-name"><input type="text" onfocus="setTempRename(this.value)" oninput="getValue(this,\'' + sysName + '\')" onblur="setRename(this,\'' + sysId + '\',\'device\')" class="rename-text w-full" value="' + sysName + '"/></span></div>';
+            html += '</li>';
+            html += '<li class="rightC-list">';
+            html += '<div class="tit">设备类型：</div>';
+            html += '<div class="main">照明灯</div>';
+            html += '</li>';
+            html += '<li class="rightC-list">';
+            html += '<div class="tit">设备型号：</div>';
+            html += '<div class="main t-white">' + sysId + '</div>';
+            html += '</li>';
+
+                /*'<li>' +
+                '<div class="tit">设备定时：</div>' +
+                '<div class="main t-white">' +
+                '<input type="text" class="timing" title="" value="09:00"/>' +
+                '<span class="glyphicon glyphicon-time"></span>' +
+                '<select class="timing-select ml20" title="">' +
+                '<option value="1">开启</option>' +
+                '<option value="2">关闭</option>' +
+                '</select>' +
+                '<div class="switch bBlue small" onclick="lampSwitch(this)"><div class="dot"></div></div>' +
+                '<a href="javascript:void(0);" class="pull-right white f20">×</a>' +
+                '</div>' +
+                '</li>' +
+                '<li>' +
+                '<div class="tit">&nbsp;</div>' +
+                '<div class="main"><span class="add-set glyphicon glyphicon-plus"></span></div>' +
+                '</li>' +*/
+            html += '</ul>';
+            html += '<div class="btn-cont w200 center mt20 mb20" style="overflow:hidden">';
+            html += '<a class="user-btn btnmini white pull-left" href="javascript:void(0);" onclick="removeDet();">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>';
+            html += '<a class="user-btn btnmini green pull-right" href="javascript:void(0);" onclick="removeDet(\'save\',this);" data-id="' + sysId + '">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>';
+            html += '</div>';
+            html += '</div>';
+            if ($(".switch-detail").length > 0) {
+                $(".switch-detail").remove();
+            }
+            $("#dropDownNotice").prepend(html);
+        }
+
+        function removeDet(reType,that){
+            if(reType == "save"){
+                var id = $(that).attr("data-id");
+                var addGroupId = $(".switch-detail .area-select").val();
+                if(addGroupId == "0"){
+                    layer.msg("请选择区域");
+                    return false;
+                }
+                var url = "/device/setGroup";
+                var token = getCookie("token");
+                var mydata = JSON.stringify({
+                    "id":id,
+                    "groupId":addGroupId
+                });
+                common.Ajax(url, mydata, "post", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        layer.msg(res.msg,{icon:1,time:1000});
+                    } else {
+                        layer.msg(res.msg,{icon:2,time:1000});
+                    }
+                },token);
+            }
+            $(".switch-detail").remove();
+        }
+
+        function ignore(that){
+            $(that).html("已忽略");
+            $(that).removeAttr("onclick");
+            layer.msg('已忽略', {icon: 1});
+        }
+
+        function getUsermsg(){
+            var url = "/company/info";
+            var token = getCookie("token");
+            var mydata = "";
+            var requestType = "get";
+            common.Ajax(url, mydata, requestType, function (res) {
+                if(res.code == "200"){
+                    console.log(res);
+                    var useDays = (Date.parse(new Date()) - res.data.addTime);
+                    var day = 1000 * 60 * 60 * 24;
+                    $("#useDays").html(parseInt(useDays / day));
+                    $("#companyName").html(res.data.name);
+                    // $(".headimg").css("backgroundImage","url(" + res.data.logoUrl + ")");
+                }
+            },token);
+        }
+        getUsermsg();
+
+    </script>
+</html>

@@ -1,0 +1,107 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.status-bar {
+    margin: 20px 0;
+}
+.notice-list {
+	width: 100%;
+	margin-top: 20px;
+}
+.notice-list .listitem {
+	width: 100%;
+	line-height: 18px;
+	background-color: #fff;
+	margin-bottom: 2px;
+}
+.notice-list .listitem .tit {
+	position: relative;
+	padding: 16px;
+	cursor: pointer;
+}
+.notice-list .listitem .icon {
+	position: absolute;
+	left: 16px;
+	top: 50%;
+	width: 24px;
+	height: 24px;
+	margin-top: -12px;
+	font-size: 20px;
+	line-height: 24px;
+}
+.notice-list .listitem .angel {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	width: 12px;
+	height: 14px;
+	margin-top: -7px;
+	font-size: 12px;
+	color: #aaa;
+	transition: transform .5s;
+    -moz-transition: transform .5s; /* Firefox 4 */
+    -webkit-transition: transform .5s; /* Safari 和 Chrome */
+    -o-transition: transform .5s; /* Opera */
+}
+.notice-list .listitem .tit .text {
+	width: 100%;
+	padding: 0 100px 0 30px;
+}
+.notice-list .listitem .data {
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	margin-top: -8px;
+}
+.notice-list .listitem .main {
+	display: none;
+	padding: 10px 10px 10px 30px;
+}
+.notice-list .listitem .main .text {
+	padding-top: 10px;
+	color: #999;
+	border-top: 1px dashed #ddd;
+}
+.notice-list .listitem.active .main {
+	display: block;
+}
+.notice-list .listitem.active .angel {
+	transition: transform .5s;
+    -moz-transition: transform .5s; /* Firefox 4 */
+    -webkit-transition: transform .5s; /* Safari 和 Chrome */
+    -o-transition: transform .5s; /* Opera */
+
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); 	/* IE 9 */
+    -moz-transform:rotate(180deg); 	/* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg);
+}
+
+.inputContainer {
+	padding: 20px;
+	resize: none;
+	border: 0;
+}
+.weeks {
+	width: 100%;
+	margin: 0 -10px;
+}
+.weeks .dayitem {
+	float: left;
+	width: 100px;
+	height: 40px;
+	margin: 10px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 14px;
+	text-align: center;
+}
+.weeks .dayitem.active {
+	border: 1px solid #0c9;
+	background-color: rgba(0, 204, 153, 0.3);
+}

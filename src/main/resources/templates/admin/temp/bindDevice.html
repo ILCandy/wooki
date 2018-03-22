@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_deviceList.css"/>
+        <title>设置</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+            <div class="tab-bar mt40">
+                <ul class="tab-bar-ul">
+                    <li class="tab-bar-li active" data-type="1" onclick="getList(this);">中控网关</li>
+                    <li class="tab-bar-li" data-type="2" onclick="getList(this);">电表</li>
+                    <li class="tab-bar-li" data-type="3" onclick="getList(this);">门禁</li>
+                    <li class="tab-bar-li" data-type="4" onclick="getList(this);">空调网关</li>
+                </ul>
+                <a href="javascript:void(0);" id="Refresh" onclick="refresh(this);">刷新</a>
+            </div>
+                
+            <div class="table-style" id="List">
+            </div>
+
+            <div class="row mt20">
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="input-group w-full">
+                        <select class="form-control" id="selectCompany">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt20"><a class="user-btn green" id="bindBtn" href="javascript:void(0);" data-type="1" onclick="bindCompany()">绑定</a></div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+
+        if(!IsPC()){
+            loadSlider();
+        }
+        
+        $(".load-mark").remove();
+
+        // 获取电表类型列表
+        var ammeterTypeList = {};
+        function getAmmeterTypeList(){
+            var token = getCookie("token");
+            $.ajax({
+                async: false,
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                url: "/ammeterType/list",
+                data: "",
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", token);
+                },
+                success: function (res) {
+                    if(res.code == "200"){
+                        ammeterTypeList = res.data;
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        getAmmeterTypeList();
+
+        // 获取会议室列表
+        var meetingRoomList = {};
+        function getMeetingRoomList(){
+            var token = getCookie("token");
+            $.ajax({
+                async: false,
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                url: "/metting/adminList",
+                data: "",
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", token);
+                },
+                success: function (res) {
+                    if(res.code == "200"){
+                        meetingRoomList = res.data.records;
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        getMeetingRoomList();
+
+        // 获取列表
+        function getList(that,page){
+            var url;
+            var type = $(that).attr("data-type") || "1";
+            if(that){
+                $(".tab-bar-li").removeClass("active");
+                $(that).addClass("active");
+            }
+            $("#bindBtn").attr("data-type",type);
+            $("#Refresh").attr("data-type",type);
+            if(type == 3){
+                $("#Refresh").show();
+            } else {
+                $("#Refresh").hide();
+            }
+            switch(type){
+                case "1":
+                    url = "/gateway/list";
+                    break;
+                case "2":
+                    url = "/ammeter/list";
+                    break;
+                case "3":
+                    url = "/lock/deviceList";
+                    break;
+                case "4":
+                    url = "/aircon/gatewayList";
+                    break;
+            }
+            var token = getCookie("token");
+            var mydata = "";
+            if(url == "" || url == undefined){
+                var html2 = "";
+                    html2 += '<table class="w-full">';
+                    html2 += '<thead>';
+                    html2 += '<tr>';
+                    html2 += '<td align="center">&nbsp;</td>';
+                    html2 += '<td align="center">ID</td>';
+                    html2 += '<td align="center">已分配公司</td>';
+                    html2 += '<td align="center" width="220">名称</td>';
+                    html2 += '<td align="center">在线状态</td>';
+                    html2 += '</tr>';
+                    html2 += '</thead>';
+                    html2 += '</table>';
+                $("#List").html(html2);
+            } else{
+                common.Ajax(url, mydata, "get", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        var html = "";
+                        switch(type){
+                            case "1":
+                                html += '<table class="w-full">';
+                                html += '<thead>';
+                                html += '<tr>';
+                                html += '<td align="center">&nbsp;</td>';
+                                html += '<td align="center">ID</td>';
+                                html += '<td align="center">已分配公司</td>';
+                                html += '<td align="center" width="220">名称</td>';
+                                html += '<td align="center">在线状态</td>';
+                                html += '</tr>';
+                                html += '</thead>';
+                                html += '<tbody id="gatewayList">';
+                                for (var i = 0; i < res.data.records.length; i++) {
+                                    html += '<tr>';
+                                    html += '<td align="center"><input type="checkbox" name="checkbox" value="' + res.data.records[i].gatewayId + '"></td>';
+                                    html += '<td align="center">' + res.data.records[i].gatewayId + '</td>';
+                                    html += '<td align="center">' + res.data.records[i].gatewayId + '</td>';
+                                    html += '<td align="center">';
+                                    html += '<input type="text" oninput="changeName(this);" class="rename-text" data-name="网关1" value="网关1">';
+                                    html += '<a href="javascript:void(0);" class="user-btn btnmini green" style="visibility: hidden;" onclick="setBindRename(this);">修改</a>';
+                                    html += '</td>';
+                                    html += '<td align="center">在线</td>';
+                                    html += '</tr>';
+                                }
+                                html += '</tbody>';
+                                html += '</table>';
+                                break;
+                            case "2":
+                                html += '<table class="w-full">';
+                                html += '<thead>';
+                                html += '<tr>';
+                                html += '<td align="center">&nbsp;</td>';
+                                html += '<td align="center">ID</td>';
+                                html += '<td align="center">已分配公司</td>';
+                                html += '<td align="center">类型</td>';
+                                html += '<td align="center" width="220">名称</td>';
+                                html += '<td align="center">在线状态</td>';
+                                html += '</tr>';
+                                html += '</thead>';
+                                html += '<tbody id="ammeterList">';
+                                for (var i = 0; i < res.data.records.length; i++) {
+                                    html += '<tr>';
+                                    html += '<td align="center"><input type="checkbox" name="checkbox" value="' + res.data.records[i].uuid + '"></td>';
+                                    html += '<td align="center">' + res.data.records[i].title + '</td>';
+                                    html += '<td align="center">' + res.data.records[i].companyId + '</td>';
+                                    html += '<td align="center">';
+
+                                    html += '<select class="table-select" name="" data-type="' + res.data.records[i].deviceType + '" onchange="ammeterChangeType(this)">';
+                                    html += '<option value="0">请选择</option>';
+                                    for (var j = 0; j < ammeterTypeList.length; j++) {
+                                        html += '<option value="' + ammeterTypeList[j].id + '">' + ammeterTypeList[j].name + '</option>';
+                                    };
+                                    html += '</select> ';
+                                    html += '<a href="javascript:void(0);" class="user-btn btnmini green" style="visibility: hidden;">修改</a>';
+
+                                    html += '</td>';
+                                    html += '<td align="center">';
+                                    html += '<input type="text" class="rename-text" oninput="changeName(this);" data-name="' + res.data.records[i].title + '" value="' + res.data.records[i].title + '">';
+                                    html += '<a href="javascript:void(0);" class="user-btn btnmini green" style="visibility: hidden;" onclick="setBindRename(this);">修改</a>';
+                                    html += '</td>';
+                                    html += '<td align="center">在线</td>';
+                                    html += '</tr>';
+                                };
+                                html += '</tbody>';
+                                html += '</table>';
+                                break;
+                            case "3":
+                                html += '<table class="w-full">';
+                                html += '<thead>';
+                                html += '<tr>';
+                                html += '<td align="center">&nbsp;</td>';
+                                html += '<td align="center">ID</td>';
+                                html += '<td align="center">已分配公司</td>';
+                                html += '<td align="center">已绑定会议室</td>';
+                                html += '<td align="center" width="220">名称</td>';
+                                html += '<td align="center">在线状态</td>';
+                                html += '</tr>';
+                                html += '</thead>';
+                                html += '<tbody id="ammeterList">';
+                                for (var i = 0; i < res.data.records.length; i++) {
+                                    html += '<tr>';
+                                    html += '<td align="center"><input type="checkbox" name="checkbox" value="' + res.data.records[i].id + '"></td>';
+                                    html += '<td align="center">' + res.data.records[i].id + '</td>';
+                                    html += '<td align="center">' + res.data.records[i].companyId + '</td>';
+                                    html += '<td align="center">';
+
+                                    html += '<select class="table-select" name="" data-type="' + res.data.records[i].deviceType + '" onchange="meetingChangeType(this)">';
+                                    html += '<option value="0">请选择</option>';
+                                    for (var j = 0; j < meetingRoomList.length; j++) {
+                                        html += '<option value="' + meetingRoomList[j].id + '">' + meetingRoomList[j].name + '</option>';
+                                    };
+                                    html += '</select> ';
+                                    html += '<a href="javascript:void(0);" class="user-btn btnmini green" style="visibility: hidden;">绑定</a>';
+
+                                    html += '</td>';
+                                    html += '<td align="center">';
+                                    html += '<input type="text" class="rename-text" oninput="changeName(this);" data-name="' + res.data.records[i].devName + '" value="' + res.data.records[i].devName + '">';
+                                    html += '<a href="javascript:void(0);" class="user-btn btnmini green" style="visibility: hidden;" onclick="setBindRename(this);">修改</a>';
+                                    html += '</td>';
+                                    html += '<td align="center">在线</td>';
+                                    html += '</tr>';
+                                };
+                                html += '</tbody>';
+                                html += '</table>';
+                                break;
+                            case "4":
+                                html += '多联机网关';
+                                break;
+                        }
+                        $("#List").html(html);
+                        $("#ammeterList select").each(function(){
+                            $(this).val($(this).attr("data-type"));
+                        });
+                    }
+                },token);
+            }
+        }
+        getList();
+
+        // 刷新
+        function refresh(type){
+            var url;
+            switch(type){
+                case "1":
+                    url = "";
+                    break;
+                case "2":
+                    url = "";
+                    break;
+                case "3":
+                    url = "/lock/refreshLockList";
+                    break;
+                case "4":
+                    url = "/aircon/refreshGatewayList";
+                    break;
+                default:
+                    url = "";
+                    break;
+            }
+            if(url == "" || url == undefined){
+                return false;
+            }
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                console.log(res);
+                if(res.code == "200"){
+                    layer.msg("刷新成功",{icon:1,time:1000});
+                }
+            },token);
+        }
+
+        // 获取公司列表
+        function getCompanyList(){
+            var url = "/company/list"; //  bList
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                console.log(res);
+                if(res.code == "200"){
+                    var html = "";
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        html += '<option value="' + res.data.records[i].id + '">' + res.data.records[i].name + ':' + res.data.records[i].mobile +'</option>';
+                    }
+                    $("#selectCompany").html(html);
+                }
+            },token);
+        }
+        getCompanyList();
+
+        // 电表改变类型
+        function ammeterChangeType(that){
+            var uuid = $(that).closest("tr").find("input[type=checkbox]").val();
+            var oType = $(that).attr("data-type");
+            var type = $(that).val();
+            if(oType != type){
+                $(that).next("a").css("visibility","initial").attr("onclick","setAmmeterType(" + type + ",this)");
+            } else {
+                $(that).next("a").css("visibility","hidden").removeAttr("onclick");
+            }
+        }
+
+        // 电表类型
+        function setAmmeterType(typeNum,that){
+            var uuid = $(that).closest("tr").find("input[type=checkbox]").val();
+            var url = "/ammeterDevice/setType";
+            var token = getCookie("token");
+            var mydata = JSON.stringify({
+                "id": uuid,
+                "type": Number(typeNum)
+            });
+            layer.confirm('确认要修改电表类型吗？',function(index){
+                common.Ajax(url, mydata, "post", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        $(that).css("visibility","hidden").removeAttr("onclick");
+                        layer.msg(res.msg);
+                    }
+                },token);
+            });
+            
+        }
+
+        // 会议室改变类型
+        function meetingChangeType(that){
+            var id = $(that).closest("tr").find("input[type=checkbox]").val();
+            var oType = $(that).attr("data-type");
+            var type = $(that).val();
+            if(oType != type){
+                $(that).next("a").css("visibility","initial").attr("onclick","setMeetingType(" + type + ",this)");
+            } else {
+                $(that).next("a").css("visibility","hidden").removeAttr("onclick");
+            }
+        }
+
+        // 会议室绑门禁
+        function setMeetingType(typeNum,that){
+            var switchId = $(that).closest("tr").find("input[type=checkbox]").val();
+            var url = "/metting/setSwitch";
+            var token = getCookie("token");
+            var mydata = JSON.stringify({
+                "id": Number(typeNum),
+                "switchId": switchId
+            });
+            layer.confirm('确认要修改电表类型吗？',function(index){
+                common.Ajax(url, mydata, "post", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        $(that).css("visibility","hidden").removeAttr("onclick");
+                        layer.msg(res.msg,{icon:1,time:1000});
+                    }
+                },token);
+            });
+            
+        }
+
+        // 绑定公司
+        function bindCompany(){
+            var ids = [];
+            var crtlGroup = [];
+            var companyId = $("#selectCompany").val();
+            var type = $("#bindBtn").attr("data-type");
+            $("#List input[type=checkbox]:checked").each(function(){
+                var thisid = $(this).val();
+                ids.push(thisid);
+            });
+            console.log(ids);
+            if(ids.length == 0){
+                layer.msg("请选择要绑定的设备");
+                return false;
+            }
+            if(companyId == "0"){
+                layer.msg("请选择公司");
+                return false;
+            }
+            var token = getCookie("token");
+            var url;
+            var mydata;
+            switch(type){
+                case "1":
+                    url = "/bindGateway/bind";
+                    mydata = JSON.stringify({
+                        "gatewayId": ids[0],
+                        "companyId": Number(companyId)
+                    });
+                    break;
+                case "2":
+                    url = "/ammeter/bindCompany";
+                    mydata = JSON.stringify({
+                        "id": ids[0],
+                        "companyId": Number(companyId)
+                    });
+                    break;
+                case "3":
+                    url = "/lock/lockSetCompany";
+                    mydata = JSON.stringify({
+                        "lockId": ids[0],
+                        "companyId": Number(companyId)
+                    });
+                    break;
+                case "4":
+                    url = "/aircon/bind";
+                    mydata = JSON.stringify({
+                        "id": ids[0],
+                        "companyId": Number(companyId)
+                    });
+                    break;
+            }
+            if(url == "" || url == undefined){
+                alert("不能绑定");
+            }
+            else{
+                layer.confirm('确认要绑定到该公司吗？',function(index){
+                    common.Ajax(url, mydata, "post", function (res) {
+                        console.log(res);
+                        if(res.code == "200"){
+                            layer.msg(res.msg,{icon:1,time:1000});
+                        }
+                    },token);
+                });
+            }
+        }
+
+        // 重命名
+        function changeName(that){
+            var inputText = $(that).val();
+            var tempRename = $(that).attr("data-name");
+            if(inputText == ""){
+                layer.msg("名字不能为空");
+                if($(that).next(".text").length > 0){
+                    $(that).next(".text").html(tempRename);
+                }
+                $(that).val(tempRename);
+                $(that).next("a").css("visibility","hidden");
+                return false;
+            }
+            if(inputText != tempRename){
+                $(that).next("a").css("visibility","initial");
+            } else {
+                $(that).next("a").css("visibility","hidden");
+            }
+        }
+
+        // 设置重命名
+        function setBindRename(that){
+            var id = $(that).closest("tr").find("input[type=checkbox]").val();
+            var nameText = $(that).closest("tr").find("input.rename-text").val();
+            var type = $("#bindBtn").attr("data-type");
+            var token = getCookie("token");
+            var url;
+            var mydata;
+            switch(type){
+                case "1":
+                    url = "";
+                    mydata = JSON.stringify({
+                        "id": id,
+                        "name": nameText
+                    });
+                    break;
+                case "2":
+                    url = "";
+                    mydata = JSON.stringify({
+                        "id": id,
+                        "name": nameText
+                    });
+                    break;
+                case "3":
+                    url = "";
+                    mydata = "";
+                    break;
+                case "4":
+                    url = "";
+                    mydata = "";
+                    break;
+            }
+            if(url == "" || url == undefined){
+                alert(mydata);
+            }
+            else{
+                layer.confirm('确认要重命名吗？',function(index){
+                    common.Ajax(url, mydata, "post", function (res) {
+                        console.log(res);
+                        if(res.code == "200"){
+                            layer.msg(res.msg,{icon:1,time:1000});
+                        }
+                    },token);
+                });
+            }
+        }
+    </script>
+</html>

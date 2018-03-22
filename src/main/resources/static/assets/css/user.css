@@ -1,0 +1,455 @@
+/*
+ * 自定义样式
+ */
+@import "base.css";
+/* login */
+.login-content {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+.login-bg {
+    width: 100%;
+    height: 434px;
+}
+.login-bg-img {
+    width: 100%;
+    max-width: 532px;
+}
+@media (max-width: 767px) {
+    .login-bg {
+        display: none;
+    }
+}
+.login-box {
+    max-width: 400px;
+    margin: 15px auto;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0px 10px 20px #eee;
+}
+/* login */
+
+/* index */
+.navbar-wrapper {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background-color: #2c3e50;
+    _background-color: #2c3e50;
+}
+.logo {
+    width: 210px;
+    height: 50px;
+}
+.nav .userbar {
+    position: absolute;
+    top: 0;
+    right: 50px;
+}
+.nav .userbar>li {
+    float: right;
+    list-style: none;
+    color: #fff;
+}
+.nav .userbar .dropDown {
+    position: relative;
+    cursor: pointer;
+}
+.nav .userbar .dropDown.active {
+    background-color: transparent;
+}
+.nav .userbar .dropDown .arrow {
+    transition: transform .5s;
+    -moz-transition: transform .5s; /* Firefox 4 */
+    -webkit-transition: transform .5s; /* Safari 和 Chrome */
+    -o-transition: transform .5s; /* Opera */
+}
+.nav .userbar .dropDown.active .arrow {
+    transition: transform .5s;
+    -moz-transition: transform .5s; /* Firefox 4 */
+    -webkit-transition: transform .5s; /* Safari 和 Chrome */
+    -o-transition: transform .5s; /* Opera */
+
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); 	/* IE 9 */
+    -moz-transform:rotate(180deg); 	/* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg);
+}
+.nav .userbar>li .headimg {
+    float: left;
+    border: 2px solid #90a4ae;
+    border-radius: 18px;
+    background-position: center;
+    background-size: cover;
+}
+.nav .userbar>li .text {
+    display: block;
+    float: left;
+    max-width: 120px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.nav .userbar>li .dropDown_A {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    line-height: 50px;
+    color: #fff;
+    text-decoration: none;
+}
+.userbar>li .dropDown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 180px;
+    background-color: #0c9;
+    padding: 10px 20px;
+}
+.userbar .dropDown-menu.active {
+    display: block;
+}
+.userbar li.notice {
+    position: relative;
+}
+.userbar li.notice ul,
+.userbar li.notice li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.userbar li.notice .dropDown-notice {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 360px;
+    padding: 0 10px;
+    background-color: #253443;
+}
+.userbar li.notice .dropDown-notice.active {
+    display: block;
+}
+.userbar li.notice .dropDown-notice .angle {
+    position: absolute;
+    right: 18px;
+    top: -4px;
+    background-color: #253443;
+}
+.userbar li.notice .dropDown-notice .dropDown-list {
+    position: relative;
+    line-height: 32px;
+    font-size: 12px;
+    color: #90A4AE;
+}
+.userbar li.notice .dropDown-notice .switch-detail {
+    position: absolute;
+    left: -380px;
+    top: 10px;
+    width: 380px;
+}
+@media (max-width: 960px){
+    .userbar li.notice .dropDown-notice .switch-detail {
+        left: 0px;
+    }
+}
+.dropDown-notice .dropDown-list .noticeDot {
+    display: none;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: #ff0000;
+    border-radius: 3px;
+}
+.dropDown-notice .dropDown-list .noticeDot.active {
+    display: block;
+}
+.dropDown-notice .dropDown-list .date {
+    margin-left: 10px;
+}
+.dropDown-notice .dropDown-list .msg {
+
+}
+.dropDown-notice .dropDown-list .sysname {
+    display: inline-block;
+    width: 80px;
+    height: 14px;
+    padding-top: 2px;
+    line-height: 14px;
+    color: #fff;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.dropDown-notice .dropDown-list .option {
+    padding: 0 2px;
+    color: #90A4AE;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.dropDown-notice .dropDown-list .option.set {
+    color: #0c9;
+}
+
+.userbar>li .dropDown-menu .angle {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin: -4px;
+    background-color: #0c9;
+}
+.userbar>li .dropDown-menu ul {
+    list-style: none;
+    padding: 0;
+}
+.userbar .dropDown-menu .dropDown-list {
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+.userbar .dropDown-menu .dropDown-list .icon {
+    width: auto;
+    height: auto;
+    display: initial;
+    padding: 0 5px;
+}
+.nav .userbar .icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin: 7px;
+}
+.nav .userbar .icon.icon-bell {
+    position: relative;
+    background-image: url(../img/icon-bell.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.nav .userbar .icon.icon-bell .noticeDot {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    background-color: #ff0000;
+    border-radius: 3px;
+}
+.nav .userbar .icon.icon-bell.active .noticeDot {
+    display: block;
+}
+.aside-wrapper {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    width: 210px;
+    z-index: 99;
+    overflow: auto;
+    background-color: #2c3e50;
+    _background-color: #2c3e50;
+    transition: width .5s;
+    -moz-transition: width .5s; /* Firefox 4 */
+    -webkit-transition: width .5s; /* Safari 和 Chrome */
+    -o-transition: width .5s; /* Opera */
+}
+.aside-wrapper.fold {
+    width: 60px;
+    transition: width .5s;
+    -moz-transition: width .5s; /* Firefox 4 */
+    -webkit-transition: width .5s; /* Safari 和 Chrome */
+    -o-transition: width .5s; /* Opera */
+}
+
+.aside-menu {
+    width: 100%;
+    padding-bottom: 90px;
+}
+.aside-menu-tab {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    padding: 0 20px;
+    overflow: hidden;
+    color: #f2f2f2;
+    line-height: 32px;
+    cursor: pointer;
+}
+.aside-menu-tab:hover {
+    background-color: #3b5269;
+}
+.aside-menu .aside-menu-list {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    overflow: hidden;
+    color: #f2f2f2;
+    line-height: 40px;
+    cursor: pointer;
+}
+.aside-menu .aside-menu-list .icon {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    top: 8px;
+}
+.aside-menu .aside-menu-list .icon {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.aside-menu .aside-menu-list .icon.list-icon-report {
+    background-image: url(../img/list-icon-report.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-manage {
+    background-image: url(../img/list-icon-manage.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-scene {
+    background-image: url(../img/list-icon-scene.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-linkage {
+    background-image: url(../img/list-icon-linkage.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-office {
+    background-image: url(../img/list-icon-office.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-systemLogs {
+    background-image: url(../img/list-icon-systemLogs.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-notices {
+    background-image: url(../img/list-icon-notices.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-meeting {
+    background-image: url(../img/list-icon-meeting.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-workacBooking {
+    background-image: url(../img/list-icon-workacBooking.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-workacList {
+    background-image: url(../img/list-icon-workacList.png);
+}
+.aside-menu .aside-menu-list .icon.list-icon-chargeTable {
+    background-image: url(../img/list-icon-chargeTable.png);
+}
+.aside-menu .aside-menu-list .text {
+    padding-left: 30px;
+}
+.aside-menu .aside-menu-list .arrow {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    margin-top: -6px;
+}
+.aside-menu .aside-menu-list .angle {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin: -4px;
+    z-index: 100;
+}
+.aside-menu .aside-menu-list:hover {
+    background-color: #253443;
+}
+.aside-menu .aside-menu-list.active {
+    background-color: #253443;
+}
+.aside-menu .aside-menu-list.active .angle {
+    display: block;
+}
+.aside-menu .aside-menu-list.active .arrow {
+    display: none;
+}
+.aside-summary {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 210px;
+    height: 90px;
+    background-color: #2c3e50;
+    border-top: 2px solid #253443;
+    color: #90A4AE;
+    background-image: url("../img/icon-aside-01.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    transition: width .5s;
+    -moz-transition: width .5s; /* Firefox 4 */
+    -webkit-transition: width .5s; /* Safari 和 Chrome */
+    -o-transition: width .5s; /* Opera */
+}
+.aside-wrapper .aside-summary .text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.aside-wrapper .aside-summary .main {
+    margin-top: 40px;
+}
+.aside-wrapper.fold .aside-menu .aside-menu-list .text,
+.aside-wrapper.fold .aside-menu .aside-menu-list .arrow {
+    display: none;
+}
+.aside-wrapper.fold .aside-summary {
+    width: 60px;
+    background-position: center bottom;
+    transition: width .5s;
+    -moz-transition: width .5s; /* Firefox 4 */
+    -webkit-transition: width .5s; /* Safari 和 Chrome */
+    -o-transition: width .5s; /* Opera */
+}
+.aside-wrapper.fold .aside-summary .text,
+.aside-wrapper.fold .aside-summary .unit{
+    display: none;
+}
+
+.article-wrapper {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 210px;
+    overflow: hidden;
+    z-index: 1;
+    background-color: #fff;
+    transition: left .5s;
+    -moz-transition: left .5s; /* Firefox 4 */
+    -webkit-transition: left .5s; /* Safari 和 Chrome */
+    -o-transition: left .5s; /* Opera */
+}
+.article-wrapper.fold {
+    left: 60px;
+    transition: left .5s;
+    -moz-transition: left .5s; /* Firefox 4 */
+    -webkit-transition: left .5s; /* Safari 和 Chrome */
+    -o-transition: left .5s; /* Opera */
+}
+/* index */
+.iframe-container {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 50px;
+    background-color: #f2f2f2;
+    -webkit-overflow-scrolling: touch; /* 当手指从触摸屏上移开，会保持一段时间的滚动 */
+    -webkit-overflow-scrolling: auto; /* 当手指从触摸屏上移开，滚动会立即停止 */
+}
+.iframe-container .iframe-show {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+}

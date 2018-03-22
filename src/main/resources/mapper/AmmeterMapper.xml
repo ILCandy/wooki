@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.amme.ammeter.mapper.AmmeterMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.amme.ammeter.entity.Ammeter">
+		<id column="id" property="id" />
+		<result column="allpower" property="allpower" />
+		<result column="addtime" property="addtime" />
+		<result column="update_time" property="updateTime" />
+		<result column="company_id" property="companyId" />
+	</resultMap>
+
+</mapper>

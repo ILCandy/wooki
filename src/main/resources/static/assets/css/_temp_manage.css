@@ -1,0 +1,381 @@
+/*
+ * custom style
+ */
+@import "base.css";
+body {
+    background-color: #f2f2f2;
+}
+.status-bar {
+    margin: 20px;
+}
+.area-container {
+    height: 150px;
+    background-color: #fff;
+    /*overflow: hidden;*/
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.area-container .area-header {
+    position: relative;
+    width: 100%;
+    height: 120px;
+}
+.area-container .area-header .area-names {
+    width: 50%;
+    position: relative;
+    font-size: 18px;
+}
+.area-container .area-header .area-names .layui-icon {
+    font-size: 20px;
+}
+@media (max-width: 450px){
+    .area-container .area-header .area-names {
+        font-size: 16px;
+    }
+}
+.area-container .area-header .area-names .rename-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    height: 24px;
+    border: 0;
+    background-color: transparent;
+    line-height: 24px;
+}
+.area-container .area-header .area-names .layui-icon.delete {
+    position: relative;
+    z-index: 10;
+}
+.area-container .area-header .area-plans {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+.area-container .area-header .area-switch {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 44px;
+    font-size: 20px;
+    color: #0c9;
+    cursor: pointer;
+}
+.area-container .area-header .area-switch.off {
+    color: #ccc;
+}
+.area-container .area-header .area-toggle {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 44px;
+    color: #ccc;
+    cursor: pointer;
+}
+.area-container .area-header .area-switch.active {
+    color: #0c9;
+}
+.area-container .area-header .clock {
+    cursor: pointer;
+    color: #ccc;
+}
+.area-container .area-article {
+    display: none;
+    margin-top: 20px;
+    /*overflow: hidden;*/
+}
+.area-container .area-footer {
+    margin-top: -80px;
+    padding-bottom: 50px;
+    overflow: hidden;
+    color: #ccc;
+}
+.area-container .area-footer .tips {
+    margin-top: 12px;
+    font-size: 14px;
+}
+.area-container.active .area-header .area-toggle {
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); 	/* IE 9 */
+    -moz-transform:rotate(180deg); 	/* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 潞脥 Chrome */
+    -o-transform:rotate(180deg);
+}
+.area-container.active {
+    height: auto;
+}
+.area-container.active .area-article {
+    display: block;
+}
+.area-article .switchs-container {
+    position: relative;
+    width: 100%;
+    border: 1px solid #f2f2f2;
+    border-bottom: none;
+}
+.area-article .switchs-container:after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+/*  */
+.area-article .switchs-container .switch-detail {
+    /*display: none;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    background-color: #2c3e50;
+}
+.switch-detail.active {
+    display: block;
+}
+.switch-detail .angle {
+    top: -4px;
+    background-color: #2c3e50;
+}
+/*  */
+.area-article .switchs-container .switchs {
+    width: 83.34%;
+    float: left;
+    /*overflow: hidden;*/
+}
+.add-area-container {
+    height: 150px;
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+.add-area-container .add-set {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 40px auto;
+    border: 1px dashed #90a4ae;
+    font-size: 14px;
+    color: #90a4ae;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.add-area-container:hover {
+    background-color: #ddd;
+}
+.switchs li {
+    position: relative;
+    width: 20%;
+    height: 80px;
+    float: left;
+    border-bottom: 1px solid #f2f2f2;;
+    border-right: 1px solid #f2f2f2;
+    cursor: pointer;
+}
+.switchs li .icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.switchs li .icon.icon-lamp {
+    background-image: url("../img/switch-lamp-on.png");
+}
+.switchs li .icon.icon-lamp.off {
+    background-image: url("../img/switch-lamp-off.png");
+}
+.switchs li .icon.icon-ariC {
+    background-image: url("../img/switch-air-on.png");
+}
+.switchs li .icon.icon-ariC.off {
+    background-image: url("../img/switch-air-off.png");
+}
+.switchs li .icon.icon-socket {
+    background-image: url("../img/switch-socket-on.png");
+}
+.switchs li .icon.icon-socket.off {
+    position: relative;
+    background-image: url("../img/switch-socket-off.png");
+}
+.switchs li .icon.icon-add {
+    background-image: url("../img/switch-add.png");
+}
+.area-article .switchs-container .total-switch {
+    width: 16.66%;
+    height: 79px;
+    float: right;
+    text-align: center;
+}
+@media (max-width: 450px){
+    .switchs-container .switchs li {
+        height: 60px;
+    }
+    .switchs-container .switchs li .icon {
+        background-size: contain;
+    }
+    .switchs-container .switchs li .icon.icon-add {
+        background-size: inherit;
+    }
+    .area-article .switchs-container .total-switch {
+        height: 59px;
+    }
+    .area-article .switchs-container .total-switch .text {
+        display: none;
+    }
+    .area-article .switchs-container .total-switch .icon {
+        margin-top: 10px;
+    }
+}
+.total-switch .text {
+    margin-top: 10px;
+}
+.total-switch .icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #0c9;
+}
+.total-switch.off .icon {
+    color: #ccc;
+}
+.area-container.active .area-footer {
+    margin-top: 0;
+    padding-bottom: 0;
+}
+.dropdown-adddevice {
+    /*display: none;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: #fff;
+}
+.dropdown-adddevice .angle {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    background-color: #2c3e50;
+}
+.dropdown-adddevice dt,
+.dropdown-adddevice dd {
+    padding: 6px;
+}
+.dropdown-adddevice dd {
+    position: relative;
+    padding-left: 10px;
+}
+.dropdown-adddevice dd .line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #fff;
+}
+.dropdown-adddevice dd .tx-box {
+    margin-left: 40px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.dropdown-adddevice dd input[type=checkbox] {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    margin-top: -11px;
+}
+.dropdown-adddevice .add {
+    display: inline-block;
+    margin-top: 20px;
+    color: #337ab7;
+}
+.dropdown-timing {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    z-index: 5;
+    width: 100%;
+    padding: 10px;
+    background-color: #f2f2f2;
+    box-shadow: 0 5px 5px #aaaaaa;
+}
+.dropdown-timing.active {
+    display: block;
+}
+.dropdown-timing .angle {
+    position: absolute;
+    top: -4px;
+    right: 12px;
+    background-color: #f2f2f2;
+}
+.dropdown-timing .timing-list {
+    position: relative;
+    zoom:1;
+}
+.dropdown-timing .timing-list:after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.dropdown-timing .main {
+    margin-right: 80px;
+}
+.dropdown-timing .main .date {
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+}
+.dropdown-timing .main .timing-switch {
+    width: 50%;
+    float: left;
+}
+.dropdown-timing .main .timing-switch .text {
+    margin: 7px 7px 7px 12px;
+}
+.dropdown-timing .handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.dropdown-timing .handle .handle-btn {
+    display: block;
+    float: left;
+    padding: 9px;
+    margin-left: 10px;
+}
+.dropdown-timing .add-set {
+    width: 32px;
+    height: 32px;
+    margin: 10px;
+    border: 1px dashed #90a4ae;
+    font-size: 14px;
+    color: #90a4ae;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}

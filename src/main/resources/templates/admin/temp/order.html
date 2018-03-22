@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_meeting.css"/>
+        <title>我的订单</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+
+            <div class="status-bar mt40">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="input-group w-full">
+                            <select class="form-control" title="" name="" id="select1">
+                                <option value="0">请选择</option>
+                                <option value="1">会议室</option>
+                                <option value="2">空调</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 table-style mt20">
+                <h3 class="tc">申请记录</h3>
+                <br>
+                <div class="w-full order-container" id="list">
+                    
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+        isLogin();
+        if(!IsPC()){
+            loadSlider();
+        }
+        $(".load-mark").remove();
+        
+        function sliceTime(timeText){
+            return timeText.substring(0,4) + "-" + timeText.substring(4,6) + "-" + timeText.substring(6,8) + " " + timeText.substring(8,10) + ":" + timeText.substring(10,12) + ":" + timeText.substring(12,14);
+        }
+
+        function sliceTime2(timeText){
+            return timeText.substring(8,10) + ":" + timeText.substring(10,12);
+        }
+
+        function getReserveList(page){
+            var url = "/metting/reserveList?current=" + page;
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata,"get", function (res) {
+                console.log(res);
+                var html = "";
+                if(res.code == 200){
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        if(res.data.records[i].status == 1){
+                            html += '<div class="col-md-6 col-sm-12">';
+                            html += '<div class="order-item">';
+                            html += '<div class="pull-left">会议室A：' + sliceTime(res.data.records[i].beginTime) + '&nbsp;至&nbsp;' + sliceTime(res.data.records[i].endTime) + '</div>';
+                            html += '<div class="pull-right">';
+                            html += '<a class="user-btn btnmini green" href="javascript:void(0);" onclick="lookPw(\'' + res.data.records[i].picUrl + '\');">查看密码</a>';
+                            html += '<a class="user-btn btnmini green ml10" href="javascript:void(0);" onclick="delPw(this,\'' + res.data.records[i].id + '\');">退订</a>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                        // $(".room [data-id=" + res.data.records[i] + "]");
+                    };
+                }
+                $("#list").html(html);
+            },token);
+        }
+        getReserveList(1);
+
+
+        function lookPw(url){
+            layer.alert('<img src="' + url + '" alt="二维码" width="220" height="220" />');
+        };
+
+        function delPw(that,did){
+            var url = "/metting/unReserve";
+            var token = getCookie("token");
+            var mydata = JSON.stringify({
+                "id": did
+            });
+
+            layer.confirm("确定退定该会议室吗？", {icon: 3, title:'提示'}, function(index){
+                common.Ajax(url, mydata, "post", function (res) {
+                    console.log(res);
+                    if(res.code == "200"){
+                        layer.msg("退订成功",{icon:1,time:1000});
+                        $(that).closest(".order-item").parent().remove();
+                    } else {
+                        layer.msg(res.msg,{icon:2,time:1000});
+                    }
+                },token);
+            });
+            
+        }
+    </script>
+</html>

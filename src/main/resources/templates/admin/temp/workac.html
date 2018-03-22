@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_workac.css"/>
+        <title>空调申请</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+            <div class="status-bar">
+                <div class="input-group">
+                    <select class="form-control" title="" name="" id="selectDate">
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt20">
+                
+                <div class="col-md-6 col-sm-12">
+                    <div class="room">
+                        <ul class="date">
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="acCards">
+                        <p class="area-name">A区</p>
+                        <ul class="area">
+                            <li class="list">
+                                <label>
+                                    <input type="checkbox" name="ac">
+                                    <span>空调1</span>
+                                </label>
+                            </li>
+                            <li class="list">
+                                <label>
+                                    <input type="checkbox" name="ac">
+                                    <span>空调2</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="acCards">
+                        <p class="area-name">B区</p>
+                        <ul class="area">
+                            <li class="list">
+                                <label>
+                                    <input type="checkbox" name="ac">
+                                    <span>空调3</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="acCards">
+                        <p class="area-name">C区</p>
+                        <ul class="area">
+                            <li class="list">
+                                <label>
+                                    <input type="checkbox" name="ac">
+                                    <span>空调4</span>
+                                </label>
+                            </li>
+                            <li class="list">
+                                <label>
+                                    <input type="checkbox" name="ac">
+                                    <span>空调5</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a class="user-btn green mt10" onclick="meetingBooking(1,'会议室A')" href="javascript:void(0);">预定所选时间</a>
+            
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+
+        if(!IsPC()){
+            loadSlider();
+        }
+        $(".load-mark").remove();
+
+        var myDate = new Date(); //获取今天日期
+        myDate.setDate(myDate.getDate());
+        var weeks = ["周日","周一","周二","周三","周四","周五","周六"];
+        var dateArray = [];
+        var dayArray = [];
+        var dateTemp,dateDay;
+        var flag = 1;
+        var html = "";
+        for (var i = 0; i < 3; i++) {
+            dateTemp = (myDate.getFullYear()) + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate();
+            switch (i) {
+                case 0:
+                    dateDay = "今天";
+                    break;
+                case 1:
+                    dateDay = "明天";
+                    break;
+                default:
+                    dateDay = weeks[myDate.getDay()];
+            }
+            var optionDateYear = myDate.getFullYear();
+            var optionDateMonth = (myDate.getMonth() + 1) < 10 ? ("0" + (myDate.getMonth() + 1)) : (myDate.getMonth() + 1);
+            var optionDateDay = myDate.getDate() < 10 ? ("0" + myDate.getDate()) : myDate.getDate();
+            html += '<option class="dayitem" value="' + optionDateYear + optionDateMonth + optionDateDay + '">' + dateDay + "&nbsp;" + optionDateYear + "-" + optionDateMonth + "-" + optionDateDay + '</option>';
+            dateArray.push(dateTemp);
+            dayArray.push(dateDay);
+            myDate.setDate(myDate.getDate() + flag);
+        }
+        $("#selectDate").html(html);
+
+        var date = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"];
+        var dateHtml = "";
+        for(var i = 0; i < date.length; i++){
+            dateHtml += '<li class="dateitem" onclick="dateitemClick(this)" data-num="' + i + '"><div class="box">' + date[i] + '</div></li>';
+        }
+        $(".date").html(dateHtml);
+
+        var beginDate;
+        var endDate;
+        var beginDateNum;
+        var endDateNum;
+        var acTime;
+        var meetingId,oMeetingId;
+        function dateitemClick(that){
+            meetingId = $(that).closest(".room").find(".tit").attr("data-id");
+            if(meetingId != oMeetingId){
+                beginDate = "";
+                endDate = "";
+                beginDateNum = "";
+                endDateNum = "";
+                acTime = "";
+                oMeetingId = meetingId;
+                $(".room .dateitem").removeClass("active begin end");
+            }
+            if($(that).hasClass("active.begin") || $(that).hasClass("active.end")){
+                $(that).removeClass("active begin end");
+                beginDate = "";
+                endDate = "";
+            } else {
+                if($(that).hasClass("disabled")){
+                    var tit = $(that).attr("data-tit");
+                    if(tit != undefined){
+                        $(that).closest(".room").append('<div class="roommsg"><div class="roommsg-tit">预定详情 <span class="close pull-right" onclick="closeRoommsg(this)">×</span></div><div class="roommsg-main">' + tit + '</div></div>');
+                    }
+                } else {
+                    if($(that).closest(".date").find(".dateitem.active").length >= 2){
+                        $(that).closest(".date").find(".dateitem").removeClass("active begin end");
+                        beginDate = "";
+                        endDate = "";
+                    }
+                    if($(that).closest(".date").find(".begin").length <= 0) {
+                        $(that).addClass("active begin");
+                        beginDateNum = $(that).attr("data-num");
+                        beginDate = $("#selectDate").val() + $(that).find(".box").html() + "00";
+                    } else {
+                        endDateNum = $(that).attr("data-num");
+                        endDate = $("#selectDate").val() + $(that).find(".box").html() + "00";
+                        if(Number(endDateNum) < Number(beginDateNum)) {
+                            layer.msg("结束时间不能小于开始时间");
+                            return false;
+                        }
+                        if(Number(endDateNum) == Number(beginDateNum)) {
+                            $(that).removeClass("active begin end");
+                            beginDate = "";
+                            endDate = "";
+                            return false;
+                        }
+                        $(that).addClass("active end");
+                        var i = Number(beginDateNum) + 1;
+                        while (i < Number(endDateNum)){
+                            $(that).closest(".date").find(".dateitem[data-num=" + i + "]").addClass("active");
+                            i++;
+                        }
+                        acTime = (Number(endDateNum) - Number(beginDateNum)) * 30;
+                    }
+                }
+            }
+        }
+
+        function closeRoommsg(that){
+            $(that).closest(".roommsg").remove();
+        }
+
+        function meetingBooking(roomId,roomName){
+            if(beginDate == "" || beginDate == undefined){
+                layer.msg("请选择开始时间");
+                return false;
+            }
+            if(endDate == "" || endDate == undefined){
+                layer.msg("请选择结束时间");
+                return false;
+            }
+            roomName = escape(roomName);
+            setCookie("meetingMsg", "roomName=" + roomName + "&beginDate=" + beginDate + "&endDate=" + endDate + "&acTime=" + acTime);
+            beginDate = beginDate.replace(new RegExp(/(:)/g),"");
+            endDate = endDate.replace(new RegExp(/(:)/g),"");
+            layer.open({
+                type: 2,
+                title: "会议室预定",
+                closeBtn: 1,
+                shadeClose: true,
+                shade: 0.2,
+                move: false,
+                scrollbar: false,
+                area: ['100%', '100%'],
+                content: 'workacBooking.html?beginDate=' + beginDate + '&endDate=' + endDate +'&acTime=' + acTime
+            });
+        }
+    </script>
+</html>

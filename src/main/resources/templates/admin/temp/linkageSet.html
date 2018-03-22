@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_sceneSet.css"/>
+        <title>设置</title>
+    </head>
+    <body>
+    <div class="container">
+
+        <form action="">
+            <div class="row form-horizontal bg-white mt40 pt20">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-2 control-label"><span class="set-type"></span>名称</label>
+                        <div class="col-md-8 col-sm-10">
+                            <input type="text" id="setName" class="form-control" placeholder="请输入名称" value="" readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-2 control-label"><span class="set-type"></span>图标</label>
+                        <div class="col-md-8 col-sm-10">
+                            <div class="headimg pull-left" style="background-image:url(../assets/img/logo.png);"></div>
+                            <label class="control-text pull-left ml20" for="uploadImage">更换</label>
+                            <input id="uploadImage" type="file" class="hidden" title="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-2 control-label">创建时间</label>
+                        <div class="col-md-6 col-sm-10 control-text" id="setTime"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="linkset-line"></div>
+
+            <div class="linkset-container">
+                <div class="row form-horizontal bg-white pt30">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-2 control-label"><span class="set-type"></span>设备</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-linkset" style="display:none;">
+                    <ul class="row form-horizontal linkage-device-ul">
+                        <li class="col-sm-10 col-xs-12 col-sm-offset-2 linkage-device-li">
+                            <div class="form-group">
+                                <div class="control-label pull-left gray8 link-device-tit">当设备</div>
+                                <div class="gap pull-left">&nbsp;</div>
+                                <select class="form-control pull-left sensor-select" title="">
+                                    <option value="0" disabled="disabled">请选择传感器</option>
+                                </select>
+                                <div class="gap pull-left">&nbsp;</div>
+                                <select class="form-control pull-left sensor-select2" title="">
+                                    <option value="1">关闭</option>
+                                    <option value="2">开启</option>
+                                </select>
+                                <!-- <div class="gap pull-left">&nbsp;</div>
+                                <div class="f18 mt5 pull-left">×</div> -->
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- <div class="row form-horizontal bg-white">
+                        <div class="col-sm-10 col-xs-12 col-sm-offset-2 gray8">
+                            <span class="add-set add1 glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="gray8 sub-linkset scene-device-tit" style="display:none;">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-link"></span>&nbsp;则设备</div>
+
+                <ul class="row form-horizontal scene-device-ul">
+                </ul>
+
+                <div class="row form-horizontal bg-white">
+                    <div class="col-sm-10 col-xs-12 col-sm-offset-2 gray8">
+                        <div class="w80 pull-left sub-linkset add2-gap" style="display:none;">&nbsp;</div>
+                        <span class="add-set add2 pull-left glyphicon glyphicon-plus" onclick="addSenceDevice();"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="linkset-line"></div>
+
+            <div class="row form-horizontal bg-white pt30">
+                <div class="col-md-2 col-sm-3 col-xs-12 scene-set-tit">
+                    <div class="form-group">
+                        <label class="col-md-8 col-sm-8 col-xs-8 control-label"><span class="set-type"></span><span class="set-type-text"></span></label>
+                        <div class="col-md-4 col-xs-4 scene-set-switch">
+                            <div class="switch bBlue small"><div class="dot"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-9 col-xs-12 scene-set-time">
+                    <ul>
+                        <li class="chose-date-link">
+                            <div class="col-xs-4 col-sm-offset-1 input-group date pull-left">
+                                <input type="text" class="form-control time1" value="" onfocus="timeTaker(this)" style="float:none;" placeholder="选择开始时间">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                            </div>
+                            <div class="col-xs-1 pull-left text-center sub-linkset" style="margin-top:7px;">~</div>
+                            <div class="col-xs-4 input-group date pull-left sub-linkset" style="display:none;">
+                                <input type="text" class="form-control time2" value="" onfocus="timeTaker(this)" style="float:none;" placeholder="选择结束时间">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                            </div>
+                            <div class="col-xs-1 pull-left text-center sub-linkset" style="margin-top:7px;"></div>
+                        </li>
+                    </ul>
+                    <span class="add-set add-date-link glyphicon glyphicon-plus" onclick="addLinkTime();"></span>
+                </div>
+                <div class="col-md-5 col-sm-12 form-horizontal scene-set-rate">
+                    <div class="col-md-3 col-xs-2 control-label tit">执行频率</div>
+                    <div class="col-md-9 col-xs-10 week-rate" id="weekRate">
+                        <ul class="week-select">
+                            <li class="week-option active" data-innum="1" data-id="Monday">周一<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="2" data-id="Tuesday">周二<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="3" data-id="Wednesday">周三<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="4" data-id="Thursday">周四<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="5" data-id="Friday">周五<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="6" data-id="Saturday">周六<span class="icon glyphicon glyphicon-ok"></span></li>
+                            <li class="week-option active" data-innum="7" data-id="Sunday">周日<span class="icon glyphicon glyphicon-ok"></span></li>
+                        </ul>
+                        <p class="gray6">&nbsp;&nbsp;&nbsp;（当不选择周期时,执行频率为单次）</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row form-horizontal bg-white sub-linkset" style="display:none;">
+                <div class="col-sm-12 gray8">
+                    <span class="add-set add3 glyphicon glyphicon-plus"></span>
+                </div>
+            </div> -->
+
+            <div class="row mt30 mb30" id="saveContainer" style="display:none;">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a class="user-button white pull-left" href="javascript:void(0);" onclick="closeLayerOpen()">取消</a>
+                    <a class="user-button green pull-right" href="javascript:void(0);" onclick="addLink()">保存</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+        var Request = GetRequest();
+        var setId = Request.setId;
+        var setType = Request.setType || 1;
+        var myDate = new Date();
+        var dateStr = myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate() + " " + myDate.getHours() + ':'+myDate.getMinutes() + ':' + myDate.getSeconds();
+
+        var areaObj = {};
+        function getGroup(){
+            var token = getCookie("token");
+            $.ajax({
+                async: false,
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                url: "/group/list",
+                data: "",
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", token);
+                },
+                success: function (res) {
+                    if(res.code == "200" && res.data != null){
+                        areaObj = res.data;
+                        return areaObj;
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        getGroup();
+
+        if(setType != "1"){
+            $(".set-type").html("联动");
+            $(".set-type-text").html("时段");
+            $(".sub-linkset").show();
+            // $(".chose-date-link").removeClass("col-xs-12").addClass("col-xs-5");
+            getSensor();
+            if(setId != "add"){
+                getLinkDetail(setId);
+            } else {
+                $("#setTime").html(dateStr);
+                $("#saveContainer").show();
+            }
+        } else {
+            $(".set-type").html("情景");
+            $(".set-type-text").html("定时");
+            $(".sub-linkset").hide();
+            // $(".chose-date-link").removeClass("col-xs-5").addClass("col-xs-12");
+            $("#saveContainer").html("");
+        }
+
+        $(".week-option").click(function(){
+            $(this).toggleClass("active");
+        });
+
+        $(".switch").click(function () {
+            if (!$(this).hasClass("active")) {
+                $(this).addClass("active");
+            } else {
+                $(this).removeClass("active");
+            }
+        });
+
+        function getLinkDetail(setId){
+            var token = getCookie("token");
+            var mydata = JSON.stringify({
+                "id":setId
+            });
+            common.Ajax("/link/detailInfo", mydata,"post", function (res) {
+                console.log(res);
+                if(res.code == "200"){
+                    $("#setName").val(res.data.link.id);
+                    $("#setTime").html(format(res.data.link.addtime));
+                    var workDays1 = [];
+                    workDays1 = res.data.link.days.split(",");
+                    for (var i = 0; i < workDays1.length; i++) {
+                        if(workDays1[i] == 1){
+                            $("#weekRate .week-select").find("li[data-innum=7]").addClass("active");
+                        } else {
+                            $("#weekRate .week-select").find("li[data-innum=" + (workDays1[i] - 1) + "]").addClass("active");
+                        }
+                    };
+
+                    var getTime = [];
+                    var timeUl = $(".scene-set-time ul");
+                    getTime = res.data.link.linkTime.split(",");
+                    for (var i = 0; i < getTime.length; i++) {
+                        timeUl.find("li:nth-child(" + (i + 1) + ") input.time1").val(getTime[i].split("~")[0]);
+                        timeUl.find("li:nth-child(" + (i + 1) + ") input.time2").val(getTime[i].split("~")[1]);
+                        if(i > 0){
+                            addLinkTime(getTime[i].split("~")[0],getTime[i].split("~")[1]);
+                        }
+                    };
+
+                    var html = "";
+                    for(var j = 0; j < res.data.deviceList.length; j++){
+
+                        html += '<li class="col-sm-10 col-xs-12 col-sm-offset-2 scene-device-li">';
+                        html += '<div class="form-group">';
+                        html += '<div class="control-label pull-left gray8 link-seat" style="visibility:hidden;">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;则设备</div>';
+                        html += '<div class="gap pull-left">&nbsp;</div>';
+                        html += '<select class="form-control pull-left area-select" title="" onchange="getDevice(this,' + res.data.deviceList[j].groupId + ',' + res.data.deviceList[j].id + ')">';
+                        html += '<option value="0">请选择区域</option>';
+                        for(var i = 0; i < areaObj.length; i++){
+                            html += '<option value="' + areaObj[i].id + '">' + areaObj[i].name + '</option>';
+                        }
+                        html += '</select>';
+                        html += '<div class="gap pull-left">&nbsp;</div>';
+                        html += '<select class="form-control pull-left device-select" title="">';
+
+                        html += '<option value="0" disabled="disabled">请选择区域</option>';
+                        html += '</select>';
+                        html += '<div class="gap pull-left">&nbsp;</div>';
+                        html += '<select class="form-control pull-left status-select" title="">';
+                        html += '<option value="close">关闭</option>';
+                        html += '<option value="open">开启</option>';
+                        html += '</select>';
+                        html += '<div class="gap pull-left">&nbsp;</div>';
+                        html += '<div class="scene-device-del" onclick="delSenceDevice(this);">×</div>';
+                        html += '</div>';
+                        html += '</li>';
+                    }
+                    $(".scene-device-ul").append(html);
+                    var switchState = [];
+                    switchState = res.data.link.deviceStatus.split(",");
+                    for(var j = 0; j < res.data.deviceList.length; j++){
+                        var tempSelect = $(".scene-device-ul li:nth-child(" + (j + 1) + ")");
+                        tempSelect.find(".area-select").val(res.data.deviceList[j].groupId);
+                        if (tempSelect.find(".area-select")[0].fireEvent) {
+                            tempSelect.find(".area-select")[0].fireEvent('onchange');
+                        } else {
+                            tempSelect.find(".area-select")[0].onchange();
+                        }
+                        tempSelect.find(".status-select").val(switchState[j].split(":")[1]!="00"?"open":"close");
+                    }
+                    $(".sensor-select").val(res.data.linkDevice.id);
+                    if(res.data.link.status != "0000"){
+                        $(".sensor-select2").val("2");
+                    }
+                }
+            },token);
+        };
+
+        // 获取传感器
+        function getSensor(){
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax("/device/linkDevice", mydata,"get", function (res) {
+                console.log(res);
+                if(res.code == "200"){
+                    var html = "";
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        html += '<option value="' + res.data.records[i].id + '">' + res.data.records[i].name + '</option>';
+                    };
+                    $(".sensor-select").html(html);
+                }
+            },token);
+        }
+
+        function closeLayerOpen(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index);
+        }
+
+        function addLinkTime(t1,t2){
+            var t1 = t1 || "";
+            var t2 = t2 || "";
+            var html = "";
+            html += '<li class="chose-date-link">';
+            html += '<div class="col-xs-4 col-sm-offset-1 input-group date pull-left">';
+            html += '<input type="text" class="form-control time1" value="' + t1 + '" onfocus="timeTaker(this)" style="float:none;" placeholder="选择开始时间">';
+            html += '<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>';
+            html += '</div>';
+            html += '<div class="col-xs-1 pull-left text-center sub-linkset" style="margin-top:7px;">~</div>';
+            html += '<div class="col-xs-4 input-group date pull-left sub-linkset">';
+            html += '<input type="text" class="form-control time2" value="' + t2 + '" onfocus="timeTaker(this)" style="float:none;" placeholder="选择结束时间">';
+            html += '<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>';
+            html += '</div>';
+            html += '<div class="col-xs-1 pull-left text-center sub-linkset" style="margin-top:7px;" onclick="delLinkTime(this)">×</div>';
+            html += '</li>';
+            $(".scene-set-time ul").append(html);
+        }
+
+        function delLinkTime(that){
+            layer.confirm('确认要删除该时间段吗？',function(index){
+                $(that).closest("li").remove();
+                layer.msg("删除成功",{icon:1,time:1000});
+            });
+        }
+
+        function getDevice(that,selectGroupId,selectId){
+            var groupId = $(that).val();
+            var token = getCookie("token");
+            var data = JSON.stringify({
+                "groupId": groupId
+            });
+            if(groupId != "0"){
+                common.Ajax("/group/device", data, "post", function (res) {
+                    if(res.code == "200"){
+                        var html = "";
+                        if(res.data.length > 0){
+                            for (var i = 0; i < res.data.length; i++) {
+                                html += '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>';
+                            };
+                        } else {
+                            html += '<option value="0" disabled="disabled" selected="selected">该区暂无设备</option>';
+                        }
+                        $(that).closest("li").find(".device-select").html(html);
+                        $(that).closest("li").find(".device-select").val(selectId);
+                    }
+                },token);
+            } else {
+                $(that).closest("li").find(".device-select").html('<option value="0" disabled="disabled" selected="selected">该区暂无设备</option>');
+            }
+        }
+
+
+        function addSenceDevice(){
+            var html = "";
+            html += '<li class="col-sm-10 col-xs-12 col-sm-offset-2 scene-device-li">';
+            html += '<div class="form-group">';
+            html += '<div class="control-label pull-left gray8 link-seat" style="visibility:hidden;">&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;则设备</div>';
+            html += '<div class="gap pull-left">&nbsp;</div>';
+            html += '<select class="form-control pull-left area-select" title="" onchange="getDevice(this)">';
+            html += '<option value="0">请选择区域</option>';
+            for(var i = 0; i < areaObj.length; i++){
+                html += '<option value="' + areaObj[i].id + '">' + areaObj[i].name + '</option>';
+            }
+            html += '</select>';
+            html += '<div class="gap pull-left">&nbsp;</div>';
+            html += '<select class="form-control pull-left device-select" title="">';
+            html += '<option value="0" disabled="disabled">请选择区域</option>';
+            html += '</select>';
+            html += '<div class="gap pull-left">&nbsp;</div>';
+            html += '<select class="form-control pull-left status-select" title="">';
+            html += '<option value="close">关闭</option>';
+            html += '<option value="open">开启</option>';
+            html += '</select>';
+            html += '<div class="gap pull-left">&nbsp;</div>';
+            html += '<div class="scene-device-del" onclick="delSenceDevice(this);">×</div>';
+            html += '</div>';
+            html += '</li>';
+            $(".scene-device-ul").append(html);
+            if(setType != "1"){
+                $(".sub-linkset").show();
+            }
+        }
+
+        function delSenceDevice(that){
+            layer.confirm('确认要删除该设备吗？',function(index){
+                $(that).closest("li").remove();
+                layer.msg("删除成功",{icon:1,time:1000});
+            });
+        }
+
+        function addLink(){
+            var days = [];
+            var weekRate = "";
+            var frequency = 0;
+            var enable = 0;
+            if($(".scene-set-switch .switch").hasClass("active")){
+                enable = 1;
+            }
+            var thisWeekActive = document.querySelectorAll("#weekRate .week-option.active");
+            if(thisWeekActive.length > 0){
+                weekRate += thisWeekActive[0].getAttribute("data-id");
+                for(var i = 1; i < thisWeekActive.length; i++){
+                    weekRate += "," + thisWeekActive[i].getAttribute("data-id");
+                }
+                days.push(weekRate);
+                frequency = 1;
+            }
+
+            //  deviceList
+            var addDevideList = $(".scene-device-ul .scene-device-li");
+            var devices = [];
+            var status = [];
+            var sensorId = $(".sensor-select").val();
+            var switchStatus = "0100";
+            if(sensorId == 0){
+                layer.msg("请选择传感器");
+                return false;
+            }
+            if($(".sensor-select2").val() == "1"){
+                switchStatus = "0000";
+            }
+            if(addDevideList.length <= 0){
+                layer.msg("请添加定时设备");
+                return false;
+            }
+            if(days.length <= 0){
+                layer.msg("请选择频率");
+                return false;
+            }
+            // var linkList = [];
+            var linkList = "";
+            for(var i = 0; i < addDevideList.length; i++){
+                var deviceId = $(addDevideList[i]).find(".device-select").val();
+                var deviceStatu = $(addDevideList[i]).find(".status-select").val();
+                if(deviceId == "0" || deviceId == "" || deviceId == null){
+                    layer.msg("请选择设备");
+                    return false;
+                }
+                devices.push(Number(deviceId));
+                status.push(deviceStatu);
+                // linkList.push(Number(deviceId) + ":" + deviceStatu);
+                linkList += Number(deviceId) + ":" + deviceStatu + ",";
+            }
+
+            var nary = devices.sort();
+            for (var i = 0; i < devices.length; i++) {
+                if (nary[i] == nary[i + 1]) {
+                    // console.log("数组重复内容：" + nary[i]);
+                    layer.msg("不能添加重复的设备");
+                    return false;
+                }
+            }
+
+            // var linkTime = [];
+            var timeUl = $(".scene-set-time ul");
+            var linkTime = "";
+            for (var i = 0; i < timeUl.find("li").length; i++) {
+                var dateInput = timeUl.find("li:nth-child(" + (i + 1) + ") input.time1").val() + ":00";
+                if(dateInput == ""){
+                    layer.msg("请选择开始时间");
+                    return false;
+                }
+                var dateInput2 = timeUl.find("li:nth-child(" + (i + 1) + ") input.time2").val() + ":00";
+                if(dateInput2 == ""){
+                    layer.msg("请选择结束时间");
+                    return false;
+                }
+                // linkTime.push(dateInput + "~" + dateInput2);
+                linkTime += dateInput + "~" + dateInput2 + ",";
+            };
+
+            var token = getCookie("token");
+
+            linkTime=(linkTime.substring(linkTime.length-1)==',')?linkTime.substring(0,linkTime.length-1):linkTime;
+            linkList=(linkList.substring(linkList.length-1)==',')?linkList.substring(0,linkList.length-1):linkList;
+            var mydata = JSON.stringify({
+                "deviceId": sensorId,
+                "status": switchStatus,
+                "time": linkTime,
+                "linkList": linkList,
+                "days": weekRate
+            });
+            common.Ajax("/link/add", mydata,"post", function (res) {
+                console.log(res);
+                if(res.code == "200"){
+                    layer.msg("添加成功",{icon:1,time:1000});
+                    var time = setTimeout(function () {
+                        parent.location.reload();
+                        closeLayerOpen();
+                    }, 800);
+                } else {
+                    layer.msg(res.msg,{icon:2,time:1000});
+                }
+            },token);
+        }
+    </script>
+</html>

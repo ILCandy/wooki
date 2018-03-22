@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_notices.css"/>
+        <title>新闻公告</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row usermsg-container mt30">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputNotice" class="col-sm-2 control-label">新闻标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputNotice" placeholder="公司名">
+                            </div>
+                            <div class="col-sm-2 control-label"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContainer" class="col-sm-2 control-label">新闻内容</label>
+                            <div class="col-sm-10">
+                                <textarea class="inputContainer w-full" resize="none" name="" id="inputContainer" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContainer" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <ul class="weeks">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30 mb30">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a class="user-button white pull-left" href="javascript:void(0);" onclick="closeLayerOpen()">取消</a>
+                    <a class="user-button green pull-right" href="javascript:void(0);">添加</a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+
+        function closeLayerOpen(){
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index);
+        }
+
+        var myDate = new Date(); //获取今天日期
+        myDate.setDate(myDate.getDate());
+        var weeks = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+        var dateArray = [];
+        var dayArray = [];
+        var dateTemp,dateDay;
+        var flag = 1;
+        var html = "";
+        for (var i = 0; i < 7; i++) {
+            dateTemp = (myDate.getFullYear()) + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate();
+            switch (i) {
+                case 0:
+                    dateDay = "今天";
+                    break;
+                case 1:
+                    dateDay = "明天";
+                    break;
+                default:
+                    dateDay = weeks[myDate.getDay()];
+            }
+            html += '<li class="dayitem"><p> ' + dateDay + ' </p><p>' + (myDate.getFullYear()) + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate() + '</p></li>';
+            dateArray.push(dateTemp);
+            dayArray.push(dateDay);
+            myDate.setDate(myDate.getDate() + flag);
+        }
+        $(".weeks").html(html);
+        console.log(dateArray,dayArray);
+    </script>
+</html>

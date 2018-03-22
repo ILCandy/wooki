@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en"><meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" type="text/css" href="../assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/lib/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="../assets/css/_temp_deviceList.css"/>
+        <title>设备列表</title>
+    </head>
+    <body>
+        <div class="load-mark"></div>
+        <div class="container">
+            <!-- <div class="tab-bar">
+                <ul class="tab-bar-ul">
+                    <li class="tab-bar-li active">网关</li>
+                    <li class="tab-bar-li">电表</li>
+                    <li class="tab-bar-li">门禁</li>
+                    <li class="tab-bar-li">多联机网关</li>
+                </ul>
+            </div> -->
+
+            <div class="row mt40">
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="input-group w-full">
+                        <select class="form-control" id="selectGateway">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-style mt20">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <td align="center">所属公司</td>
+                            <td align="center">所在网关</td>
+                            <td align="center">设备类型</td>
+                            <td align="center">设备ID</td>
+                            <td align="center" width="220">设备名称</td>
+                            <td align="center">在线状态</td>
+                            <td align="center">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody id="list">
+
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </body>
+    <script type="text/javascript" src="../assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/layui/layui.all.js"></script>
+    <script type="application/javascript" src="../assets/lib/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="../assets/js/user.js"></script>
+    <script>
+
+        if(!IsPC()){
+            loadSlider();
+        }
+        
+        $(".load-mark").remove();
+
+        /*function getGatewayList(){
+            var url = "/gateway/list";
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                if (res.code == 200) {
+                    console.log(res);
+                    var html = "";
+                    for (var i = 0; i < res.data.records.length; i++) {
+                        html += '<option value="' + res.data.records[i].gatewayId + '">' + res.data.records[i].gatewayId + '</option>'
+                    };
+                    $("#selectGateway").html(html);
+                };
+            },token);
+        }
+        getGatewayList();*/
+
+        function getDeviceListList(){
+            var url = "/device/deviceList";
+            var token = getCookie("token");
+            var mydata = "";
+            common.Ajax(url, mydata, "get", function (res) {
+                if (res.code == 200) {
+                    var html = "";
+                    for (var i = 0; i < res.data.length; i++) {
+                        html += '<tr>';
+                        html += '<td align="center">' + res.data[i].companyId + '</td>';
+                        html += '<td align="center">' + res.data[i].gatewayId + '</td>';
+                        html += '<td align="center">' + res.data[i].deviceId + '</td>';
+                        html += '<td align="center">' + res.data[i].id + '</td>';
+                        html += '<td align="center"><input type="text" onfocus="setTempRename(this.value)" onblur="setRename(this,\'' + res.data[i].id + '\',\'device\')" class="rename-text" value="' + res.data[i].name + '"></td>';
+                        html += '<td align="center">在线</td>';
+                        html += '<td align="center">重命名</td>';
+                        html += '</tr>';
+                    };
+                    $("#list").html(html)
+                };
+            },token);
+        }
+        getDeviceListList();
+    </script>
+</html>

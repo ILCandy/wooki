@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.report.mapper.TblReportMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.report.entity.TblReport">
+		<id column="id" property="id" />
+		<result column="gateway_id" property="gatewayId" />
+		<result column="fd" property="fd" />
+		<result column="sn" property="sn" />
+		<result column="data" property="data" />
+		<result column="add_time" property="addTime" />
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head lang="en"><meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/_temp_manage.css"/>
+    <title>设备管控</title>
+</head>
+<body>
+<div class="container">
+    <div class="row status-bar">
+        <div class="col-md-4 col-xs-12">
+            <a class="user-btn green">全部展开</a>
+            <span class="user-btn gray">全部收起</span>
+        </div>
+        <div class="col-md-4 col-xs-12">&nbsp;&nbsp;</div>
+        <div class="col-md-4 col-xs-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="按设备名称搜索">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="container">
+        <div class="col-md-6 col-sm-12">
+
+            <div class="area-container">
+                <div class="area-header">
+                    <div class="area-names pull-left f20">A区</div>
+                    <div class="area-plans pull-right">
+                        <span class="clock glyphicon glyphicon-time f20" onclick="setClock(this);"></span>
+
+                    </div>
+                    <div class="area-switch"><span class="glyphicon glyphicon-off"></span></div>
+                    <div class="area-toggle" onclick="areaToggle(this);"><span class="glyphicon glyphicon-menu-down"></span></div>
+                </div>
+                <div class="area-article">
+                    <div class="switchs-container">
+                        <ul class="switchs">
+                            <li class="switchs-list" data-id="01"><span class="icon icon-lamp off"></span></li>
+                            <li class="switchs-list" data-id="02"><span class="icon icon-lamp"></span></li>
+                            <li class="switchs-list" data-id="03"><span class="icon icon-lamp"></span></li>
+                            <li class="switchs-list" data-id="04"><span class="icon icon-lamp"></span></li>
+                            <li class="switchs-list" data-id="05"><span class="icon icon-lamp"></span></li>
+                            <li class="switchs-list" data-id="06"><span class="icon icon-lamp"></span></li>
+                            <li><span class="icon icon-add" onclick="addDevice(this);"></span></li>
+                        </ul>
+                        <div class="total-switch">
+                            <div class="text">灯</div>
+                            <div class="icon"><span class="glyphicon glyphicon-off"></span></div>
+                        </div>
+                    </div>
+                    <div class="switchs-container">
+                        <ul class="switchs">
+                            <li class="switchs-list"><span class="icon icon-ariC off"></span></li>
+                            <li class="switchs-list"><span class="icon icon-ariC"></span></li>
+                            <li class="switchs-list"><span class="icon icon-ariC"></span></li>
+                            <li class="switchs-list"><span class="icon icon-ariC"></span></li>
+                            <li class="switchs-list"><span class="icon icon-ariC"></span></li>
+                            <li class="switchs-list"><span class="icon icon-ariC"></span></li>
+                            <li><span class="icon icon-add" onclick="addDevice(this);"></span></li>
+                        </ul>
+                        <div class="total-switch">
+                            <div class="text">空调</div>
+                            <div class="icon glyphicon glyphicon-off"></div>
+                        </div>
+                    </div>
+                    <div class="switchs-container">
+                        <ul class="switchs">
+                            <li class="switchs-list"><span class="icon icon-socket off"></span></li>
+                            <li class="switchs-list"><span class="icon icon-socket"></span></li>
+                            <li class="switchs-list"><span class="icon icon-socket"></span></li>
+                            <li class="switchs-list"><span class="icon icon-socket"></span></li>
+                            <li class="switchs-list"><span class="icon icon-socket"></span></li>
+                            <li class="switchs-list"><span class="icon icon-socket"></span></li>
+                            <li><span class="icon icon-add" onclick="addDevice(this);"></span></li>
+                        </ul>
+                        <div class="total-switch">
+                            <div class="text">电器</div>
+                            <div class="icon glyphicon glyphicon-off"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="area-footer">
+                    <div class="tips pull-left">在连设备数：<span class="t-green">20</span></div>
+                    <div class="checkbox pull-right">
+                        <label>
+                            <input type="checkbox">&nbsp;&nbsp;计入分区统计
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="area-container add-area-container" onclick="addArea(this);">
+                <div class="add-set glyphicon glyphicon-plus"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/assets/js/jquery-2.1.3.js"></script>
+<script type="text/javascript" src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/lib/layui/layui.all.js"></script>
+<script type="text/javascript" src="/assets/js/user.js"></script>
+<script>
+
+    function getDevice(){
+
+    }
+    var url = "../json/manage.json";
+    var mydata = "";
+    var requestType = "get";
+    common.Ajax(url, mydata,requestType, function (data) {
+        console.log(data);
+        var html = "";
+        if(data.success == true){
+            for(var i = 0; i < data.list.length; i++){
+                html += '<div class="col-md-6 col-sm-12">';
+                html += '<div class="area-container">';
+                html += '<div class="area-header">';
+                html += '<div class="area-names pull-left f20" data-id="' + data.list[i].area_id + '">' + data.list[i].area_name + '</div>';
+                html += '<div class="area-plans pull-right">';
+                html += '<span class="clock glyphicon glyphicon-time f20" onclick="setClock(this);"></span>';
+                html += '</div>';
+                html += '<div class="area-switch"><span class="glyphicon glyphicon-off"></span></div>';
+                html += '<div class="area-toggle" onclick="areaToggle(this);"><span class="glyphicon glyphicon-menu-down"></span></div>';
+                html += '</div>';
+                html += '<div class="area-article">';
+                var html1 = '';
+                var html2 = '';
+                var html3 = '';
+                for(var j = 0; j < data.list[i].obj.length; j++){
+                    if (data.list[i].obj[j].type == 1) {
+                        html1 += '<li class="switchs-list" data-id="' + data.list[i].obj[j].id + '"><span class="icon icon-lamp ' + (data.list[i].obj[j].open_status==1?"":"off") + '"></span></li>';
+                    } else if (data.list[i].obj[j].type == 2) {
+                        html2 += '<li class="switchs-list" data-id="' + data.list[i].obj[j].id + '"><span class="icon icon-ariC ' + (data.list[i].obj[j].open_status==1?"":"off") + '"></span></li>';
+                    } else if (data.list[i].obj[j].type == 3) {
+                        html3 += '<li class="switchs-list" data-id="' + data.list[i].obj[j].id + '"><span class="icon icon-socket ' + (data.list[i].obj[j].open_status==1?"":"off") + '"></span></li>';
+                    }
+
+                }
+                html += '<div class="switchs-container">';
+                html += '<ul class="switchs">';
+                html += html1;
+                html += '<li><span class="icon icon-add" onclick="addDevice(this);"></span></li>';
+                html += '</ul>';
+                html += '<div class="total-switch">';
+                html += '<div class="text">灯</div>';
+                html += '<div class="icon"><span class="glyphicon glyphicon-off"></span></div>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '<div class="switchs-container">';
+                html += '<ul class="switchs">';
+                html += html2;
+                html += '<li><span class="icon icon-add" onclick="addDevice(this);"></span></li>';
+                html += '</ul>';
+                html += '<div class="total-switch">';
+                html += '<div class="text">空调</div>';
+                html += '<div class="icon glyphicon glyphicon-off"></div>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '<div class="switchs-container">';
+                html += '<ul class="switchs">';
+                html += html3;
+                html += '<li><span class="icon icon-add" onclick="addDevice(this);"></span></li>';
+                html += '</ul>';
+                html += '<div class="total-switch">';
+                html += '<div class="text">电器</div>';
+                html += '<div class="icon glyphicon glyphicon-off"></div>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '</div>';
+                html += '<div class="area-footer">';
+                html += '<div class="tips pull-left">在连设备数：<span class="t-green">20</span></div>';
+                html += '<div class="checkbox pull-right">';
+                html += '<label><input type="checkbox">&nbsp;&nbsp;计入分区统计</label>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+            }
+        }
+        $("#container").html(html);
+    });
+
+    function areaToggle(that){
+        $(that).closest(".area-container").toggleClass("active");
+    }
+
+    function setClock(that){
+        if($(that).next(".dropdown-timing.active").length >0){
+            $(that).next(".dropdown-timing.active").remove();
+        } else {
+            var html = '';
+            html += '<div class="dropdown-timing active">';
+            html += '<span class="angle"></span>';
+            html += '<ul>';
+            html += '<li class="timing-list">';
+            html += '<div class="main">';
+            html += '<div class="input-group date">';
+            html += '<input type="text" class="form-control layui-time" value="" title="">';
+            html += '<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>';
+            html += '</div>';
+            html += '<div class="timing-switch form-group">';
+            html += '<div class="text control-label pull-left gray6">全区设备</div>';
+            html += '<select class="select form-control pull-left" style="width:80px;" title="">';
+            html += '<option value="1">开启</option>';
+            html += '<option value="2">关闭</option>';
+            html += '</select>';
+            html += '</div>';
+            html += '</div>';
+            html += '<div class="handle">';
+            html += '<a href="javascript:void(0);" class="handle-btn">暂停</a>';
+            html += '<a href="javascript:void(0);" class="handle-btn">×</a>';
+            html += '</div>';
+            html += '</li>';
+            html += '</ul>';
+            html += '<div class="add-set glyphicon glyphicon-plus"></div>';
+            html += '</div>';
+            $(that).after(html);
+        }
+    }
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '.layui-time',
+            type: 'time',
+            format: 'HH:mm'
+        });
+    });
+
+    $(".total-switch").click(function(){
+        var thisUl = $(this).prev(".switchs");
+        if($(this).hasClass("off")){
+            $(this).removeClass("off");
+            thisUl.find(".switchs-list").each(function(){
+                $(this).find(".icon").removeClass("off");
+                console.log($(this).find(".icon").hasClass("off"));
+            });
+        } else {
+            $(this).addClass("off");
+            thisUl.find(".switchs-list").each(function(){
+                $(this).find(".icon").addClass("off");
+                console.log($(this).find(".icon").hasClass("off"));
+            });
+        }
+    });
+
+    $(".area-switch").click(function(){
+        var thisArea = $(this).parent().next();
+        if($(this).hasClass("off")){
+            $(this).removeClass("off");
+            thisArea.find(".switchs-list").each(function(){
+                $(this).find(".icon").removeClass("off");
+                console.log($(this).find(".icon").hasClass("off"));
+            });
+        } else {
+            $(this).addClass("off");
+            thisArea.find(".switchs-list").each(function(){
+                $(this).find(".icon").addClass("off");
+                console.log($(this).find(".icon").hasClass("off"));
+            });
+        }
+    });
+
+    function lampSwitch(that){
+        if (!$(that).hasClass("active")) {
+            $(that).addClass("active");
+        } else {
+            $(that).removeClass("active");
+        }
+    }
+
+    var timer;
+    $(".switchs-list").on({
+        "mouseenter": function () {
+            var thisTemp = $(this);
+            var deviceId = $(this).attr("data-id");
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                var html = '<div class="switch-detail" onmouseleave="removeDet(this);">' +
+                    '<div class="leftC"><div class="switch-control lamp "></div><div class="icon-clock"><span class="glyphicon glyphicon-time"></span></div></div>' +
+                    '<ul class="rightC">' +
+                    '<li>' +
+                    '<div class="tit">设备名称：</div>' +
+                    '<div class="main t-white">灯' + deviceId + '</div>' +
+                    '</li>' +
+                    '<li>' +
+                    '<div class="tit">设备类型：</div>' +
+                    '<div class="main">照明灯</div>' +
+                    '</li>' +
+                    '<li>' +
+                    '<div class="tit">设备型号：</div>' +
+                    '<div class="main t-white">sa1fdwf13adew</div>' +
+                    '</li>' +
+                    '<li>' +
+                    '<div class="tit">设备定时：</div>' +
+                    '<div class="main t-white">' +
+                    '<input type="text" class="timing" title="" value="09:00"/>' +
+                    '<span class="glyphicon glyphicon-time"></span>' +
+                    '<select class="timing-select ml20" title="">' +
+                    '<option value="1">开启</option>' +
+                    '<option value="2">关闭</option>' +
+                    '</select>' +
+                    '<div class="switch bBlue small" onclick="lampSwitch(this)"><div class="dot"></div></div>' +
+                    '<a href="javascript:void(0);" class="pull-right white f20">×</a>' +
+                    '</div>' +
+                    '</li>' +
+                    '<li>' +
+                    '<div class="tit">&nbsp;</div>' +
+                    '<div class="main"><span class="add-set glyphicon glyphicon-plus"></span></div>' +
+                    '</li>' +
+                    '</ul>' +
+                    '</div>';
+                if ($(".switch-detail").length > 0) {
+                    $(".switch-detail").remove();
+                }
+                thisTemp.closest(".switchs-container").prepend(html);
+            }, 500);
+        },
+        "mouseleave": function () {
+            clearTimeout(timer);
+        }
+    });
+
+    function removeDet(that){
+        setTimeout(function (){
+            $(that).remove();
+        },500);
+    }
+
+    function addArea(that){
+        var html = '<div class="col-md-6 col-sm-12">'+
+            '<div class="area-container active">'+
+            '<div class="area-header">'+
+            '<div class="area-names pull-left f20">A区</div>'+
+            '<div class="area-plans pull-right">'+
+            '<span class="clock glyphicon glyphicon-time f20" onclick="setClock(this);"></span>'+
+            '<div class="dropdown-timing">'+
+            '<span class="angle"></span>'+
+            '<div class="add-set glyphicon glyphicon-plus"></div>'+
+            '</div>'+
+            '</div>'+
+            '<div class="area-switch"><span class="glyphicon glyphicon-off"></span></div>'+
+            '<div class="area-toggle" onclick="areaToggle(this);"><span class="glyphicon glyphicon-menu-down"></span></div>'+
+            '</div>'+
+            '<div class="area-article">'+
+            '<div class="switchs-container">'+
+            '<ul class="switchs">'+
+            '<li><span class="icon icon-add" onclick="addDevice(this);"></span></li>'+
+            '</ul>'+
+            '</div>'+
+            '</div>'+
+            '<div class="area-footer">&nbsp;</div>'+
+            '</div>'+
+            '</div>';
+        $(that).parent().before(html);
+    }
+
+    function addDevice(that){
+        var vwidth = $(that).width();
+        var n = $(that).parent("li").index();
+        var vleft = (n % 5 + 0.5) * vwidth;
+        var vheight = parseInt(n / 5 +1) * 80;
+        var html = '<div class="dropdown-adddevice" style="top:' + vheight + 'px;">' +
+            '<span class="angle size12" style="left:'+ vleft +'px;"></span>'+
+            '<dl>'+
+            '<dt>'+
+            '<input type="checkbox" name="device"/>'+
+            '<span>&nbsp;&nbsp;全部为分区设备</span>'+
+            '</dt>'+
+            '<dd class="dropDown-list">'+
+            '<div class="line"></div>'+
+            '<input type="checkbox" name="device"/>'+
+            '<span class="text">&nbsp;&nbsp;【未分区】设备【灯1】</span>'+
+            '<span class="msg">2017-12-22 19:03&nbsp;&nbsp;首次上线</span>'+
+            '</dd>'+
+            '<dd class="dropDown-list">'+
+            '<div class="line"></div>'+
+            '<input type="checkbox" name="device"/>'+
+            '<span class="text">&nbsp;&nbsp;【未分区】设备【灯2】</span>'+
+            '<span class="msg">2017-12-22 19:03&nbsp;&nbsp;首次上线</span>'+
+            '</dd>'+
+            '<dd class="dropDown-list">'+
+            '<div class="line"></div>'+
+            '<input type="checkbox" name="device"/>'+
+            '<span class="text">&nbsp;&nbsp;【未分区】设备【灯3】</span>'+
+            '<span class="msg">2017-12-22 19:03&nbsp;&nbsp;首次上线</span>'+
+            '</dd>'+
+            '</dl>'+
+            '<a class="add" href="javascript:void(0);">添加已分区设备</a>'+
+
+            '<div class="btn-cont w200 center mb20 mt20" style="overflow:hidden">'+
+            '<a class="user-btn btnmini white pull-left" href="javascript:void(0);" onclick="removeDropdown(this);">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>'+
+            '<a class="user-btn btnmini green pull-right" href="javascript:void(0);" onclick="saveDropdown(this);">&nbsp;&nbsp;保存&nbsp;&nbsp;</a>'+
+            '</div>'+
+            '</div>';
+        if ($(".dropdown-adddevice").length > 0) {
+            $(".dropdown-adddevice").remove();
+        }
+        $(that).closest(".switchs").after(html);
+
+    }
+
+    function removeDropdown(that){
+        $(that).closest(".dropdown-adddevice").remove();
+    }
+
+    function saveDropdown(that){
+        $(that).closest(".dropdown-adddevice").remove();
+    }
+
+</script>
+</html>

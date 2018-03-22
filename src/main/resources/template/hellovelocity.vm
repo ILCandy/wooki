@@ -1,0 +1,89 @@
+package ${controllerPath};
+
+import ${basePath}.base.BaseJson;
+import ${basePath}.base.Constant;
+import ${parentPath}.entity.${Entity};
+import ${parentPath}.service.${ServiceName};
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+/**
+* <p>
+*
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+
+@RestController
+@RequestMapping("{companyCode}/${moduleName}")
+public class ${controllerName}{
+##    private static final Logger logger = LoggerFactory.getLogger(${controllerName}.class);
+
+    @Autowired
+    ${ServiceName} ${serviceName};
+
+    @Autowired
+    RedisTemplateUtils redisTemplateUtils;
+
+    @GetMapping("/get")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_CAPTAIN','ROLE_HR','ROLE_BOSS','ROLE_ADMIN','ROLE_SUPER_ADMIN')")
+    public Object get(@PathVariable("companyCode")String companyCode, ${Entity} ${entity}){
+        try{
+            ${entity} = ${serviceName}.selectById(${entity}.getId());
+            if(${entity} == null)
+                return JSON.toJSON(BaseJson.fail(Constant.NOTFOUND,CodeConstant.FAIL));
+            return JSON.toJSON(BaseJson.ok(Constant.SELECTSUCCESS,Constant.TRUE,${entity}));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSON(BaseJson.fail(Constant.SELECTFAIL,CodeConstant.FAIL));
+    }
+
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_CAPTAIN','ROLE_HR','ROLE_BOSS','ROLE_ADMIN','ROLE_SUPER_ADMIN')")
+    public Object list(@PathVariable("companyCode")String companyCode,Page<${Entity}> page,EntityWrapper<${Entity}> entityWrapper,${Entity} ${entity}){
+        try {
+            // ${eneity} 其余条件处理}
+            entityWrapper.setEntity(${entity});
+            ${serviceName}.selectPage(page,entityWrapper);
+            return JSON.toJSON(BaseJson.ok(Constant.SELECTSUCCESS,Constant.TRUE,page));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSON(BaseJson.fail(Constant.SELECTFAIL,CodeConstant.FAIL));
+    }
+
+    @PostMapping("/save")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_CAPTAIN','ROLE_HR','ROLE_BOSS','ROLE_ADMIN','ROLE_SUPER_ADMIN')")
+    public Object save(@PathVariable("companyCode")String companyCode,${Entity} ${entity}){
+        try {
+            if(${serviceName}.insertOrUpdate(${entity}))
+                return JSON.toJSON(BaseJson.ok(Constant.SAVESUCCESS,Constant.TRUE));
+            return JSON.toJSON(BaseJson.ok(Constant.SAVEFAIL,CodeConstant.FAIL));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSON(BaseJson.fail(Constant.SAVEFAIL,CodeConstant.FAIL));
+    }
+
+    @RequestMapping("/delete")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_CAPTAIN','ROLE_HR','ROLE_BOSS','ROLE_ADMIN','ROLE_SUPER_ADMIN')")
+    public Object delete(@PathVariable("companyCode")String companyCode,${Entity} ${entity}){
+        try{
+            if(${serviceName}.deleteById(${entity}.getId()))
+                return JSON.toJSON(BaseJson.ok(Constant.DELETESUCCESS,Constant.TRUE));
+            return JSON.toJSON(BaseJson.fail(Constant.DELETEFAIL,CodeConstant.FAIL));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSON(BaseJson.fail(Constant.DELETEFAIL,CodeConstant.FAIL));
+    }
+}
+

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="/admin/assets/lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/admin/assets/css/user.css"/>
+        <title>登录</title>
+        <style>
+            body {
+                background-color: #fafafa;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="content login-content">
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+
+        <div class="content login-content">
+            <div class="col-md-8 col-sm-6">
+                <div class="login-bg">
+                    <img class="login-bg-img" src="/admin/assets/img/login-bg.png" alt="登录">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+
+                <!-- login -->
+                <div id="loginFormBox" class="show">
+
+                    <div class="login-box">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img src="assets/img/logo.png" alt="绿蚁智能" width="100"/>
+                            </div>
+                        </div>
+                        <form id="loginForm" name="form">
+                            <div class="form-group">
+                                <label for="exampleInputAccount">手机号/邮箱</label>
+                                <input type="text" name="username" class="form-control" id="exampleInputAccount" placeholder="请输入手机号/邮箱">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword">密码</label>
+                                <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="请输入密码">
+                            </div>
+                        </form>
+                        <!--<div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 下次自动登录
+                            </label>
+                        </div>-->
+                        <div class="form-group">
+                            <a class="user-button green" onclick="login()" href="javascript:void(0);">登录</a>
+                            <!-- <span class="text-right">还没有账号？<a onclick="changePage(0);" href="javascript:void(0);">立即注册</a></span> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- reg -->
+                <div id="regform" class="hidden">
+
+                    <div class="login-box">
+                        <h3 class="text-center">注册</h3>
+                        <div class="form-group">
+                            <label for="exampleInputAccountReg">手机号/邮箱</label>
+                            <input type="email" class="form-control" id="exampleInputAccountReg" placeholder="请输入手机号/邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPasswordReg">密码</label>
+                            <input type="password" class="form-control" id="exampleInputPasswordReg" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPasswordReg2">确认密码</label>
+                            <input type="password" class="form-control" id="exampleInputPasswordReg2" placeholder="请再次输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputImageCodeReg">请输入图片验证码</label>
+                            <input type="text" class="form-control" id="exampleInputImageCodeReg" placeholder="请输入图片验证码">
+                        </div>
+                        <div class="form-group">
+                            <a class="user-button green" onclick="reg()" href="javascript:void(0);">注册</a>
+                            <span class="text-right">已有账号？<a onclick="changePage(1);" href="javascript:void(0);">立即登录</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center">
+                    <a href="javascript:void(0);"><img src="/admin/assets/img/login-about.png" width="16" alt="关于绿蚁">&nbsp;关于绿蚁</a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:void(0);"><img src="/admin/assets/img/login-project.png" width="16" alt="节能案例">&nbsp;节能案例</a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:void(0);"><img src="/admin/assets/img/login-contact.png" width="16" alt="联系我们">&nbsp;联系我们</a>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="footer login-content">
+            <p class="tc" style="margin-top:20px;">Copyright&nbsp;©&nbsp;武智科技2017. All rights reserved.</p>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="/admin/assets/js/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="/admin/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/admin/assets/lib/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/admin/assets/js/user.js"></script>
+    <script>
+        document.getElementById('exampleInputAccount').focus();
+        function login() {
+            var names = document.getElementById("exampleInputAccount").value;
+            var passwords = document.getElementById("exampleInputPassword").value;
+
+            if(names == ""){
+                layer.msg("请输入账号");
+                return false;
+            }
+
+            if(passwords == ""){
+                layer.msg("请输入密码");
+                return false;
+            }
+
+            var mydata = $("#loginForm").serialize();
+            $.ajax({
+                type: "post",
+                contentType: "application/x-www-form-urlencoded",
+                dataType : "json",
+                url: "/company/companyLogin",
+                data: mydata,
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == "200") {
+                        layer.msg("登录成功",{icon:1,time:1000});
+                        var time = setTimeout(function () {
+                            if(IsPC()){
+                                window.location.href = "/admin";
+                            } else {
+                                window.location.href = "/admin/temp/report.html";
+                            }
+                        }, 800);
+                    } else {
+                        layer.msg(data.msg,{icon:2,time:1000});
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        }
+
+
+
+        function reg() {
+            var regNames = document.getElementById("exampleInputAccountReg").value;
+            var regPasswords = document.getElementById("exampleInputPasswordReg").value;
+            var regPasswords2 = document.getElementById("exampleInputPasswordReg2").value;
+            var regImageCode = document.getElementById("exampleInputImageCodeReg").value;
+
+            if(regNames == ""){
+                layer.msg("请输入用户名");
+                return false;
+            }
+
+            if(regPasswords == "" || regPasswords2 == ""){
+                layer.msg("请输入密码");
+                return false;
+            }
+
+            if(regPasswords !== regPasswords2){
+                layer.msg("两次密码不一致");
+                return false;
+            }
+
+            if(regImageCode == ""){
+                layer.msg("请输入图片认证码");
+                return false;
+            }
+
+            /*var mydata2 = JSON.stringify({
+                "name" : regNames,
+                "pass" : regPasswords
+            });
+            common.Ajax("sys/login", mydata, "post", function (data) {
+                console.log(data);
+                if (data.code == "200") {
+                    layer.msg("注册成功", {icon: 1, time: 1000});
+                    var time = setTimeout(function () {
+                        window.location.href = "index.html";
+                    }, 800);
+                } else {
+                    layer.msg(data.msg, {icon: 2, time: 1000});
+                }
+            });*/
+
+        }
+
+        function changePage(a){
+            var loginPage = document.getElementById("loginFormBox");
+            var regPage = document.getElementById("regform");
+            if(a == 0){
+                loginPage.setAttribute("class", "hidden");
+                regPage.setAttribute("class", "show");
+            } else {
+                loginPage.setAttribute("class", "show");
+                regPage.setAttribute("class", "hidden");
+            }
+        }
+
+        document.onkeydown=function(event) {
+            e = event ? event :(window.event ? window.event : null);
+            if(e.keyCode==13){
+                login();
+            }
+        }
+    </script>
+</html>

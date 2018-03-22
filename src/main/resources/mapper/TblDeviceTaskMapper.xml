@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.tbl.task.mapper.TblDeviceTaskMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.tbl.task.entity.TblDeviceTask">
+		<id column="id" property="id" />
+		<result column="device_id" property="deviceId" />
+		<result column="task_id" property="taskId" />
+		<result column="data" property="data" />
+		<result column="time" property="time" />
+		<result column="day" property="day" />
+		<result column="gateway_id" property="gatewayId" />
+		<result column="enable" property="enable" />
+	</resultMap>
+
+	<update id="updateEnableBatch">
+		update tbl_device_task set
+		enable = #{status}
+		where id IN
+		<foreach item="item" index="index" collection="ids" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="updateStatusByTaskId">
+		update tbl_device_task set
+		enable = #{enable}
+		where task_id = #{taskId}
+	</update>
+</mapper>

@@ -1,0 +1,19 @@
+139.159.247.254
+root
+wooki_1225
+
+Http://fbeecloud.com/wiki/index.php/%E8%BD%AF%E4%BB%B6%E6%96%87%E6%A1%A3
+
+https://dashboard.wookitech.com/
+webmaster 1
+
+https://platform.wookitech.com/
+13333333333
+1
+
+db:
+username = jxva
+password = pass1009
+
+wookitech
+

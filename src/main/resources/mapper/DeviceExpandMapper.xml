@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wooki.system.amme.expand.mapper.DeviceExpandMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wooki.system.amme.expand.entity.DeviceExpand">
+		<id column="Uuid" property="Uuid" />
+		<result column="allpower" property="allpower" />
+		<result column="current" property="current" />
+		<result column="last_time" property="lastTime" />
+		<result column="surplus" property="surplus" />
+		<result column="voltage" property="voltage" />
+	</resultMap>
+
+	<sql id="BaseColumn">
+		Uuid,allpower,current,last_time,surplus,voltage
+	</sql>
+
+	<update id="updateByUuidBatch">
+		<foreach index="index" item="item" collection="expandList" separator=";">
+			update ammeter_device_expand
+			<trim prefix="set" suffixOverrides=",">
+				<if test="item.allpower!=null"> allpower = #{item.allpower},</if>
+				<if test="item.current!=null"> allpower = #{item.current},</if>
+				<if test="item.lastTime!=null"> last_time = #{item.lastTime},</if>
+				<if test="item.surplus!=null"> surplus = #{item.surplus},</if>
+				<if test="item.voltage!=null"> voltage = #{item.voltage},</if>
+			</trim>
+			where Uuid = #{item.Uuid}
+		</foreach>
+	</update>
+
+	<update id="updateByUuid">
+		update ammeter_device_expand
+		<trim prefix="set" suffixOverrides=",">
+			<if test="allpower!=null"> allpower = #{allpower},</if>
+			<if test="current!=null"> current = #{current},</if>
+			<if test="lastTime!=null"> last_time = #{lastTime},</if>
+			<if test="surplus!=null"> surplus = #{surplus},</if>
+			<if test="voltage!=null"> voltage = #{voltage},</if>
+		</trim>
+		where Uuid = #{Uuid}
+	</update>
+
+	<select id="selectByUuid" resultType="java.lang.String">
+		select Uuid from ammeter_device_expand
+		where Uuid = #{Uuid}
+	</select>
+
+	<insert id="replaceBatchByUuid">
+		<foreach index="index" item="item" collection="expandList" separator=";">
+			replace into
+			ammeter_device_expand (<include refid="BaseColumn"/>)
+			values (#{item.current},#{item.current},#{item.lastTime},#{item.surplus}
+			#{item.voltage},#{item.allpower})
+		</foreach>
+	</insert>
+</mapper>
