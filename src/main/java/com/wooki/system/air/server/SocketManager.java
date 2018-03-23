@@ -107,17 +107,17 @@ public class SocketManager {
 				sql = "insert into air_device values(?,?,?,?,?,?,?,?,?,?,?,?)";
 				prepareStatement = connection.prepareStatement(sql);
 				prepareStatement.setNull(1, Types.INTEGER);
-				prepareStatement.setString(2,"空调设备");
-				prepareStatement.setInt(3,companyId);
-				prepareStatement.setString(4,gatewayUid);
-				prepareStatement.setString(5,Integer.toHexString(bytes[j+3]));
-				prepareStatement.setString(6,Integer.toHexString(bytes[j+1]));
-				prepareStatement.setString(7,Integer.toHexString(bytes[j+2]));
-				prepareStatement.setInt(8,0);
+				prepareStatement.setDate(2,new Date(System.currentTimeMillis()));
+				prepareStatement.setString(3,checksum);
+				prepareStatement.setInt(4,companyId);
+				prepareStatement.setString(5,"空调设备");
+				prepareStatement.setString(6,gatewayUid);
+				prepareStatement.setInt(7,0);
+				prepareStatement.setString(8,Integer.toHexString(bytes[j+2]));
 				prepareStatement.setInt(9,1);
-				prepareStatement.setDate(10,new Date(System.currentTimeMillis()));
-				prepareStatement.setNull(11,Types.DATE);
-				prepareStatement.setString(12,checksum);
+				prepareStatement.setString(10,Integer.toHexString(bytes[j+1]));
+				prepareStatement.setString(11,Integer.toHexString(bytes[j+3]));
+				prepareStatement.setNull(12,Types.DATE);
 				j = j+10;
 				prepareStatement.executeUpdate();
 			}
